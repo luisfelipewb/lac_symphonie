@@ -1,0 +1,4 @@
+# raw downloads and previews produced by scripts/fetch_data.py / gen_terrain.py
+data/
+__pycache__/
+.pytest_cache/

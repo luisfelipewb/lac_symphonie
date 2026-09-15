@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>lac_symphonie</name>
+  <version>0.1.0</version>
+  <description>
+    VRX world that is a digital twin of Lac Symphonie (Metz Technopole):
+    real geodetic origin, terrain from IGN RGE ALTI, shoreline and trees from
+    OpenStreetMap, plus a node that publishes lat/lon points as TF frames.
+  </description>
+  <maintainer email="luisfelipewb@gmail.com">Luis Batista</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>ament_cmake_python</buildtool_depend>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>geographic_msgs</exec_depend>
+  <exec_depend>python3-yaml</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>vrx_gz</exec_depend>
+  <exec_depend>ros_gz_sim</exec_depend>
+  <test_depend>ament_cmake_pytest</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

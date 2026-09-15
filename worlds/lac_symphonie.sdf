@@ -1,0 +1,1033 @@
+<?xml version="1.0" ?>
+
+<sdf version="1.9">
+  <world name="lac_symphonie">
+
+    <physics name="4ms" type="dart">
+      <max_step_size>0.004</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+
+    <gui fullscreen="0">
+
+      <!-- 3D scene -->
+      <plugin filename="MinimalScene" name="3D View">
+        <gz-gui>
+          <title>3D View</title>
+          <property type="bool" key="showTitleBar">false</property>
+          <property type="string" key="state">docked</property>
+        </gz-gui>
+
+        <engine>ogre2</engine>
+        <scene>scene</scene>
+        <ambient_light>0.4 0.4 0.4</ambient_light>
+        <background_color>0.8 0.8 0.8</background_color>
+        <camera_pose>-420 -380 190 0 0.5 0.72</camera_pose>
+        <camera_clip>
+          <near>0.25</near>
+          <far>10000</far>
+        </camera_clip>
+      </plugin>
+
+      <!-- Plugins that add functionality to the scene -->
+      <plugin filename="EntityContextMenuPlugin" name="Entity context menu">
+        <gz-gui>
+          <property key="state" type="string">floating</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </gz-gui>
+      </plugin>
+      <plugin filename="GzSceneManager" name="Scene Manager">
+        <gz-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </gz-gui>
+      </plugin>
+      <plugin filename="InteractiveViewControl" name="Interactive view control">
+        <gz-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </gz-gui>
+      </plugin>
+      <plugin filename="CameraTracking" name="Camera Tracking">
+        <gz-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </gz-gui>
+      </plugin>
+      <plugin filename="MarkerManager" name="Marker manager">
+        <gz-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </gz-gui>
+      </plugin>
+      <plugin filename="SelectEntities" name="Select Entities">
+        <gz-gui>
+          <anchors target="Select entities">
+            <line own="right" target="right"/>
+            <line own="top" target="top"/>
+          </anchors>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </gz-gui>
+      </plugin>
+      <plugin filename="VisualizationCapabilities" name="Visualization Capabilities">
+        <gz-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </gz-gui>
+      </plugin>
+
+      <plugin filename="Spawn" name="Spawn Entities">
+        <gz-gui>
+          <anchors target="Select entities">
+            <line own="right" target="right"/>
+            <line own="top" target="top"/>
+          </anchors>
+          <property key="resizable" type="bool">false</property>
+          <property key="width" type="double">5</property>
+          <property key="height" type="double">5</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+        </gz-gui>
+      </plugin>
+
+      <!-- World control -->
+      <plugin filename="WorldControl" name="World control">
+        <gz-gui>
+          <title>World control</title>
+          <property type="bool" key="showTitleBar">false</property>
+          <property type="bool" key="resizable">false</property>
+          <property type="double" key="height">72</property>
+          <property type="double" key="width">121</property>
+          <property type="double" key="z">1</property>
+
+          <property type="string" key="state">floating</property>
+          <anchors target="3D View">
+            <line own="left" target="left"/>
+            <line own="bottom" target="bottom"/>
+          </anchors>
+        </gz-gui>
+
+        <play_pause>true</play_pause>
+        <step>true</step>
+        <start_paused>true</start_paused>
+        <use_event>true</use_event>
+
+      </plugin>
+
+      <!-- World statistics -->
+      <plugin filename="WorldStats" name="World stats">
+        <gz-gui>
+          <title>World stats</title>
+          <property type="bool" key="showTitleBar">false</property>
+          <property type="bool" key="resizable">false</property>
+          <property type="double" key="height">110</property>
+          <property type="double" key="width">290</property>
+          <property type="double" key="z">1</property>
+
+          <property type="string" key="state">floating</property>
+          <anchors target="3D View">
+            <line own="right" target="right"/>
+            <line own="bottom" target="bottom"/>
+          </anchors>
+        </gz-gui>
+
+        <sim_time>true</sim_time>
+        <real_time>true</real_time>
+        <real_time_factor>true</real_time_factor>
+        <iterations>true</iterations>
+      </plugin>
+
+      <!-- Insert simple shapes -->
+      <plugin filename="Shapes" name="Shapes">
+        <gz-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="x" type="double">0</property>
+          <property key="y" type="double">0</property>
+          <property key="width" type="double">250</property>
+          <property key="height" type="double">50</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+          <property key="cardBackground" type="string">#666666</property>
+        </gz-gui>
+      </plugin>
+
+      <!-- Insert lights -->
+      <plugin filename="Lights" name="Lights">
+        <gz-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="x" type="double">250</property>
+          <property key="y" type="double">0</property>
+          <property key="width" type="double">150</property>
+          <property key="height" type="double">50</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+          <property key="cardBackground" type="string">#666666</property>
+        </gz-gui>
+      </plugin>
+
+      <!-- Translate / rotate -->
+      <plugin filename="TransformControl" name="Transform control">
+        <gz-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="x" type="double">0</property>
+          <property key="y" type="double">50</property>
+          <property key="width" type="double">250</property>
+          <property key="height" type="double">50</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+          <property key="cardBackground" type="string">#777777</property>
+        </gz-gui>
+
+        <!-- disable legacy features used to connect this plugin to GzScene3D -->
+        <legacy>false</legacy>
+      </plugin>
+
+      <!-- Screenshot -->
+      <plugin filename="Screenshot" name="Screenshot">
+        <gz-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="x" type="double">250</property>
+          <property key="y" type="double">50</property>
+          <property key="width" type="double">50</property>
+          <property key="height" type="double">50</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+          <property key="cardBackground" type="string">#777777</property>
+        </gz-gui>
+      </plugin>
+
+      <!-- Video recorder -->
+      <plugin filename="VideoRecorder" name="VideoRecorder">
+        <gz-gui>
+          <property key="resizable" type="bool">false</property>
+          <property key="x" type="double">300</property>
+          <property key="y" type="double">50</property>
+          <property key="width" type="double">50</property>
+          <property key="height" type="double">50</property>
+          <property key="state" type="string">floating</property>
+          <property key="showTitleBar" type="bool">false</property>
+          <property key="cardBackground" type="string">#777777</property>
+        </gz-gui>
+
+        <record_video>
+          <use_sim_time>true</use_sim_time>
+          <lockstep>true</lockstep>
+          <bitrate>4000000</bitrate>
+        </record_video>
+
+        <!-- disable legacy features used to connect this plugin to GzScene3D -->
+        <legacy>false</legacy>
+      </plugin>
+
+      <!-- Inspector -->
+      <plugin filename="ComponentInspector" name="Component inspector">
+        <gz-gui>
+          <property type="string" key="state">docked_collapsed</property>
+        </gz-gui>
+      </plugin>
+
+      <!-- Entity tree -->
+      <plugin filename="EntityTree" name="Entity tree">
+        <gz-gui>
+          <property type="string" key="state">docked_collapsed</property>
+        </gz-gui>
+      </plugin>
+
+      <!-- View angle -->
+      <plugin filename="ViewAngle" name="View angle">
+        <gz-gui>
+          <property type="string" key="state">docked_collapsed</property>
+        </gz-gui>
+
+        <!-- disable legacy features used to connect this plugin to GzScene3D -->
+        <legacy>false</legacy>
+      </plugin>
+
+    </gui>
+
+    <plugin
+      filename="gz-sim-physics-system"
+      name="gz::sim::systems::Physics">
+    </plugin>
+    <plugin
+      filename="gz-sim-user-commands-system"
+      name="gz::sim::systems::UserCommands">
+    </plugin>
+    <plugin
+      filename="gz-sim-sensors-system"
+      name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+      <disable_on_drained_battery>true</disable_on_drained_battery>
+    </plugin>
+    <plugin
+      filename="gz-sim-imu-system"
+      name="gz::sim::systems::Imu">
+    </plugin>
+    <plugin
+      filename="gz-sim-magnetometer-system"
+      name="gz::sim::systems::Magnetometer">
+    </plugin>
+    <plugin
+      filename="gz-sim-forcetorque-system"
+      name="gz::sim::systems::ForceTorque">
+    </plugin>
+    <plugin
+      filename="gz-sim-particle-emitter-system"
+      name="gz::sim::systems::ParticleEmitter">
+    </plugin>
+    <plugin
+      filename="gz-sim-scene-broadcaster-system"
+      name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+    <plugin
+      filename="gz-sim-contact-system"
+      name="gz::sim::systems::Contact">
+    </plugin>
+    <plugin
+      filename="gz-sim-navsat-system"
+      name="gz::sim::systems::NavSat">
+    </plugin>
+
+    <scene>
+      <sky></sky>
+      <grid>false</grid>
+      <ambient>1.0 1.0 1.0</ambient>
+      <background>0.8 0.8 0.8</background>
+    </scene>
+
+    <!-- World origin = centroid of Lac Symphonie (OSM relation 8841690) at the
+         water level measured on the IGN RGE ALTI 1 m DTM.  x = East, y = North,
+         z = 0 is the water surface.  Keep in sync with lac_symphonie/geo.py. -->
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <world_frame_orientation>ENU</world_frame_orientation>
+      <latitude_deg>49.1035229</latitude_deg>
+      <longitude_deg>6.2171120</longitude_deg>
+      <elevation>191.74</elevation>
+      <heading_deg>0.0</heading_deg>
+    </spherical_coordinates>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0 0 0 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.4 0.3 -0.85</direction>
+    </light>
+
+    <!-- Terrain generated by scripts/gen_terrain.py (IGN RGE ALTI + orthophoto,
+         lake bed carved inside the OSM shoreline).  Pose 0: mesh is already in
+         world coordinates. -->
+    <include>
+      <name>lac_symphonie_terrain</name>
+      <pose>0 0 0 0 0 0</pose>
+      <uri>model://lac_symphonie_terrain</uri>
+    </include>
+
+    <!-- Lake-shaped water surface (generated by scripts/gen_terrain.py, same
+         Gerstner shader as coast_waves).  To get the stock 6 km sea plane instead,
+         include <uri>coast_waves</uri> here and regenerate the terrain with
+         gen_terrain.py and its clamp option so the plane does not show through low ground. -->
+    <include>
+      <name>lac_symphonie_water</name>
+      <pose>0 0 0 0 0 0</pose>
+      <uri>model://lac_symphonie_water</uri>
+    </include>
+
+    <!-- Trees placed by scripts/gen_trees.py from OpenStreetMap.  Everything
+         between the two markers is regenerated; lines carrying a "manual"
+         comment are kept across runs.  Edit freely outside the block. -->
+    <!-- BEGIN generated trees -->
+    <include><name>tree_000</name><uri>model://tree_oak_l</uri><pose>8.38 5.74 1.15 0 0 4.24</pose></include>  <!-- shore -->
+    <include><name>tree_001</name><uri>model://tree_oak_m</uri><pose>10.90 -0.61 0.14 0 0 4.44</pose></include>  <!-- shore -->
+    <include><name>tree_002</name><uri>model://tree_oak_l</uri><pose>14.94 1.82 1.14 0 0 6.03</pose></include>  <!-- shore -->
+    <include><name>tree_003</name><uri>model://tree_oak_l</uri><pose>2.89 14.95 0.77 0 0 5.77</pose></include>  <!-- wood -->
+    <include><name>tree_004</name><uri>model://tree_oak_l</uri><pose>8.94 14.15 1.75 0 0 4.06</pose></include>  <!-- shore -->
+    <include><name>tree_005</name><uri>model://tree_oak_m</uri><pose>-2.05 18.11 0.11 0 0 3.97</pose></include>  <!-- shore -->
+    <include><name>tree_006</name><uri>model://tree_oak_l</uri><pose>16.29 8.84 1.70 0 0 0.47</pose></include>  <!-- wood -->
+    <include><name>tree_007</name><uri>model://tree_oak_l</uri><pose>20.36 -6.89 0.05 0 0 0.14</pose></include>  <!-- wood -->
+    <include><name>tree_008</name><uri>model://tree_oak_l</uri><pose>20.11 8.68 1.42 0 0 1.13</pose></include>  <!-- shore -->
+    <include><name>tree_009</name><uri>model://tree_oak_m</uri><pose>-0.97 24.17 0.16 0 0 0.06</pose></include>  <!-- shore -->
+    <include><name>tree_010</name><uri>model://tree_oak_l</uri><pose>19.92 15.10 1.39 0 0 0.91</pose></include>  <!-- wood -->
+    <include><name>tree_011</name><uri>model://tree_oak_l</uri><pose>23.89 -7.71 0.07 0 0 5.71</pose></include>  <!-- shore -->
+    <include><name>tree_012</name><uri>model://tree_oak_s</uri><pose>-6.22 24.39 -0.67 0 0 0.70</pose></include>  <!-- shore -->
+    <include><name>tree_013</name><uri>model://tree_oak_m</uri><pose>23.56 10.01 1.16 0 0 1.82</pose></include>  <!-- shore -->
+    <include><name>tree_014</name><uri>model://tree_oak_l</uri><pose>18.48 19.21 1.35 0 0 1.52</pose></include>  <!-- shore -->
+    <include><name>tree_015</name><uri>model://tree_oak_l</uri><pose>5.30 26.21 1.28 0 0 1.67</pose></include>  <!-- shore -->
+    <include><name>tree_016</name><uri>model://tree_oak_l</uri><pose>27.70 -3.31 0.83 0 0 5.60</pose></include>  <!-- wood -->
+    <include><name>tree_017</name><uri>model://tree_oak_l</uri><pose>1.21 29.85 0.31 0 0 3.17</pose></include>  <!-- wood -->
+    <include><name>tree_018</name><uri>model://tree_oak_l</uri><pose>12.12 27.65 2.25 0 0 5.67</pose></include>  <!-- wood -->
+    <include><name>tree_019</name><uri>model://tree_oak_m</uri><pose>30.12 4.78 0.73 0 0 3.22</pose></include>  <!-- wood -->
+    <include><name>tree_020</name><uri>model://tree_oak_l</uri><pose>15.95 28.34 1.76 0 0 5.12</pose></include>  <!-- shore -->
+    <include><name>tree_021</name><uri>model://tree_oak_l</uri><pose>6.34 32.73 1.23 0 0 5.03</pose></include>  <!-- wood -->
+    <include><name>tree_022</name><uri>model://tree_oak_m</uri><pose>29.90 16.66 1.12 0 0 2.75</pose></include>  <!-- wood -->
+    <include><name>tree_023</name><uri>model://tree_oak_m</uri><pose>32.15 14.53 0.57 0 0 2.66</pose></include>  <!-- wood -->
+    <include><name>tree_024</name><uri>model://tree_oak_l</uri><pose>20.99 28.61 0.96 0 0 5.64</pose></include>  <!-- wood -->
+    <include><name>tree_025</name><uri>model://tree_oak_s</uri><pose>-27.81 -22.30 0.04 0 0 5.67</pose></include>  <!-- shore -->
+    <include><name>tree_026</name><uri>model://tree_oak_l</uri><pose>27.03 23.32 1.06 0 0 0.66</pose></include>  <!-- shore -->
+    <include><name>tree_027</name><uri>model://tree_oak_s</uri><pose>-1.51 36.53 -0.09 0 0 6.21</pose></include>  <!-- shore -->
+    <include><name>tree_028</name><uri>model://tree_oak_m</uri><pose>35.99 10.99 1.37 0 0 5.89</pose></include>  <!-- wood -->
+    <include><name>tree_029</name><uri>model://tree_oak_s</uri><pose>-27.03 -26.49 0.10 0 0 1.58</pose></include>  <!-- shore -->
+    <include><name>tree_030</name><uri>model://tree_oak_s</uri><pose>38.83 -0.20 -0.03 0 0 3.06</pose></include>  <!-- shore -->
+    <include><name>tree_031</name><uri>model://tree_oak_l</uri><pose>19.20 35.30 1.75 0 0 3.09</pose></include>  <!-- wood -->
+    <include><name>tree_032</name><uri>model://tree_oak_m</uri><pose>37.15 16.42 1.09 0 0 3.90</pose></include>  <!-- shore -->
+    <include><name>tree_033</name><uri>model://tree_oak_s</uri><pose>-0.27 41.26 -0.05 0 0 1.59</pose></include>  <!-- wood -->
+    <include><name>tree_034</name><uri>model://tree_oak_l</uri><pose>14.61 39.25 2.07 0 0 5.43</pose></include>  <!-- shore -->
+    <include><name>tree_035</name><uri>model://tree_oak_m</uri><pose>43.35 -0.32 -0.26 0 0 0.16</pose></include>  <!-- wood -->
+    <include><name>tree_036</name><uri>model://tree_oak_m</uri><pose>43.12 8.71 -0.03 0 0 1.50</pose></include>  <!-- wood -->
+    <include><name>tree_037</name><uri>model://tree_oak_l</uri><pose>9.28 44.10 0.95 0 0 3.72</pose></include>  <!-- shore -->
+    <include><name>tree_038</name><uri>model://tree_oak_l</uri><pose>38.47 25.74 0.55 0 0 4.94</pose></include>  <!-- wood -->
+    <include><name>tree_039</name><uri>model://tree_oak_l</uri><pose>26.26 38.59 1.41 0 0 1.95</pose></include>  <!-- shore -->
+    <include><name>tree_040</name><uri>model://tree_oak_l</uri><pose>29.79 36.93 1.26 0 0 2.77</pose></include>  <!-- wood -->
+    <include><name>tree_041</name><uri>model://tree_oak_l</uri><pose>14.61 45.20 2.01 0 0 4.00</pose></include>  <!-- wood -->
+    <include><name>tree_042</name><uri>model://tree_oak_l</uri><pose>37.25 30.00 0.39 0 0 2.86</pose></include>  <!-- shore -->
+    <include><name>tree_043</name><uri>model://tree_oak_m</uri><pose>-48.13 4.67 1.87 0 0 5.86</pose></include>  <!-- shore -->
+    <include><name>tree_044</name><uri>model://tree_oak_l</uri><pose>9.46 47.50 0.95 0 0 2.34</pose></include>  <!-- wood -->
+    <include><name>tree_045</name><uri>model://tree_oak_s</uri><pose>47.71 8.77 -0.10 0 0 5.81</pose></include>  <!-- shore -->
+    <include><name>tree_046</name><uri>model://tree_oak_s</uri><pose>-39.36 29.29 0.13 0 0 6.06</pose></include>  <!-- shore -->
+    <include><name>tree_047</name><uri>model://tree_oak_l</uri><pose>33.52 36.85 0.48 0 0 5.43</pose></include>  <!-- wood -->
+    <include><name>tree_048</name><uri>model://tree_oak_l</uri><pose>46.83 17.40 -0.03 0 0 5.04</pose></include>  <!-- shore -->
+    <include><name>tree_049</name><uri>model://tree_oak_s</uri><pose>-21.28 -45.38 -0.14 0 0 2.62</pose></include>  <!-- shore -->
+    <include><name>tree_050</name><uri>model://tree_oak_l</uri><pose>29.57 42.47 1.02 0 0 1.68</pose></include>  <!-- wood -->
+    <include><name>tree_051</name><uri>model://tree_oak_l</uri><pose>9.55 51.17 1.43 0 0 2.31</pose></include>  <!-- wood -->
+    <include><name>tree_052</name><uri>model://tree_oak_l</uri><pose>48.24 20.16 0.03 0 0 5.29</pose></include>  <!-- wood -->
+    <include><name>tree_053</name><uri>model://tree_oak_m</uri><pose>-0.89 52.83 -0.31 0 0 2.45</pose></include>  <!-- wood -->
+    <include><name>tree_054</name><uri>model://tree_oak_m</uri><pose>51.11 16.17 -0.15 0 0 2.66</pose></include>  <!-- wood -->
+    <include><name>tree_055</name><uri>model://tree_oak_l</uri><pose>27.58 46.15 1.02 0 0 3.07</pose></include>  <!-- shore -->
+    <include><name>tree_056</name><uri>model://tree_oak_l</uri><pose>48.18 24.07 0.03 0 0 4.49</pose></include>  <!-- shore -->
+    <include><name>tree_057</name><uri>model://tree_oak_l</uri><pose>43.04 33.34 0.83 0 0 1.67</pose></include>  <!-- shore -->
+    <include><name>tree_058</name><uri>model://tree_oak_m</uri><pose>-53.60 11.59 2.43 0 0 5.21</pose></include>  <!-- shore -->
+    <include><name>tree_059</name><uri>model://tree_oak_l</uri><pose>47.36 28.47 0.09 0 0 2.29</pose></include>  <!-- wood -->
+    <include><name>tree_060</name><uri>model://tree_oak_l</uri><pose>36.74 41.41 0.34 0 0 0.83</pose></include>  <!-- wood -->
+    <include><name>tree_061</name><uri>model://tree_oak_l</uri><pose>19.93 51.67 1.85 0 0 0.15</pose></include>  <!-- wood -->
+    <include><name>tree_062</name><uri>model://tree_oak_l</uri><pose>5.56 55.60 0.50 0 0 1.17</pose></include>  <!-- shore -->
+    <include><name>tree_063</name><uri>model://tree_oak_m</uri><pose>-15.89 -54.45 -0.73 0 0 1.17</pose></include>  <!-- shore -->
+    <include><name>tree_064</name><uri>model://tree_oak_s</uri><pose>-42.11 38.90 -0.09 0 0 5.93</pose></include>  <!-- shore -->
+    <include><name>tree_065</name><uri>model://tree_oak_m</uri><pose>51.80 29.09 -0.21 0 0 6.25</pose></include>  <!-- shore -->
+    <include><name>tree_066</name><uri>model://tree_oak_s</uri><pose>54.47 23.74 -0.62 0 0 4.72</pose></include>  <!-- wood -->
+    <include><name>tree_067</name><uri>model://tree_oak_m</uri><pose>-57.85 14.56 2.62 0 0 5.86</pose></include>  <!-- shore -->
+    <include><name>tree_068</name><uri>model://tree_oak_s</uri><pose>18.24 57.12 1.81 0 0 2.97</pose></include>  <!-- shore -->
+    <include><name>tree_069</name><uri>model://tree_oak_m</uri><pose>50.92 32.19 -0.13 0 0 0.33</pose></include>  <!-- shore -->
+    <include><name>tree_070</name><uri>model://tree_oak_s</uri><pose>-23.85 -55.72 0.22 0 0 2.50</pose></include>  <!-- shore -->
+    <include><name>tree_071</name><uri>model://tree_oak_l</uri><pose>23.66 56.04 0.90 0 0 5.89</pose></include>  <!-- wood -->
+    <include><name>tree_072</name><uri>model://tree_oak_l</uri><pose>27.83 54.49 0.87 0 0 0.59</pose></include>  <!-- shore -->
+    <include><name>tree_073</name><uri>model://tree_oak_l</uri><pose>42.50 44.19 0.81 0 0 3.45</pose></include>  <!-- wood -->
+    <include><name>tree_074</name><uri>model://tree_oak_l</uri><pose>32.50 52.04 0.88 0 0 2.01</pose></include>  <!-- wood -->
+    <include><name>tree_075</name><uri>model://tree_oak_l</uri><pose>47.58 38.84 0.18 0 0 0.27</pose></include>  <!-- wood -->
+    <include><name>tree_076</name><uri>model://tree_oak_s</uri><pose>-0.35 61.63 -0.53 0 0 3.26</pose></include>  <!-- wood -->
+    <include><name>tree_077</name><uri>model://tree_oak_m</uri><pose>-63.28 -1.61 3.97 0 0 2.36</pose></include>  <!-- shore -->
+    <include><name>tree_078</name><uri>model://tree_oak_l</uri><pose>9.08 63.22 0.57 0 0 0.78</pose></include>  <!-- wood -->
+    <include><name>tree_079</name><uri>model://tree_oak_m</uri><pose>-62.69 16.77 3.35 0 0 4.80</pose></include>  <!-- shore -->
+    <include><name>tree_080</name><uri>model://tree_oak_s</uri><pose>0.92 65.42 -0.61 0 0 2.87</pose></include>  <!-- shore -->
+    <include><name>tree_081</name><uri>model://tree_oak_l</uri><pose>41.17 50.87 1.00 0 0 0.79</pose></include>  <!-- shore -->
+    <include><name>tree_082</name><uri>model://tree_oak_l</uri><pose>38.38 54.35 0.31 0 0 5.91</pose></include>  <!-- shore -->
+    <include><name>tree_083</name><uri>model://tree_oak_m</uri><pose>-46.62 47.94 -0.17 0 0 0.99</pose></include>  <!-- shore -->
+    <include><name>tree_084</name><uri>model://tree_oak_m</uri><pose>15.77 65.03 1.76 0 0 1.00</pose></include>  <!-- shore -->
+    <include><name>tree_085</name><uri>model://tree_oak_l</uri><pose>19.47 64.20 1.72 0 0 3.66</pose></include>  <!-- wood -->
+    <include><name>tree_086</name><uri>model://tree_oak_l</uri><pose>46.07 50.66 0.17 0 0 3.51</pose></include>  <!-- wood -->
+    <include><name>tree_087</name><uri>model://tree_oak_l</uri><pose>27.49 63.04 1.27 0 0 1.33</pose></include>  <!-- shore -->
+    <include><name>tree_088</name><uri>model://tree_oak_l</uri><pose>-69.63 -3.40 4.69 0 0 2.74</pose></include>  <!-- shore -->
+    <include><name>tree_089</name><uri>model://tree_oak_m</uri><pose>11.05 69.65 0.34 0 0 1.91</pose></include>  <!-- shore -->
+    <include><name>tree_090</name><uri>model://tree_oak_l</uri><pose>-66.38 -28.78 5.20 0 0 3.76</pose></include>  <!-- shore -->
+    <include><name>tree_091</name><uri>model://tree_oak_s</uri><pose>8.87 71.98 -0.05 0 0 3.65</pose></include>  <!-- wood -->
+    <include><name>tree_092</name><uri>model://tree_oak_l</uri><pose>15.92 72.26 0.11 0 0 4.46</pose></include>  <!-- shore -->
+    <include><name>tree_093</name><uri>model://tree_oak_l</uri><pose>27.56 69.46 1.20 0 0 5.78</pose></include>  <!-- shore -->
+    <include><name>tree_094</name><uri>model://tree_oak_l</uri><pose>-74.44 -12.50 5.74 0 0 3.65</pose></include>  <!-- shore -->
+    <include><name>tree_095</name><uri>model://tree_oak_m</uri><pose>-75.05 10.37 5.11 0 0 1.95</pose></include>  <!-- shore -->
+    <include><name>tree_096</name><uri>model://tree_oak_l</uri><pose>21.04 72.85 0.24 0 0 0.08</pose></include>  <!-- wood -->
+    <include><name>tree_097</name><uri>model://tree_oak_m</uri><pose>-74.33 15.67 4.98 0 0 2.62</pose></include>  <!-- shore -->
+    <include><name>tree_098</name><uri>model://tree_oak_m</uri><pose>39.12 65.41 0.17 0 0 6.27</pose></include>  <!-- wood -->
+    <include><name>tree_099</name><uri>model://tree_oak_l</uri><pose>-73.99 -20.24 5.95 0 0 3.16</pose></include>  <!-- shore -->
+    <include><name>tree_100</name><uri>model://tree_oak_l</uri><pose>32.31 69.69 0.94 0 0 1.42</pose></include>  <!-- shore -->
+    <include><name>tree_101</name><uri>model://tree_oak_l</uri><pose>26.52 73.11 0.68 0 0 0.99</pose></include>  <!-- wood -->
+    <include><name>tree_102</name><uri>model://tree_oak_l</uri><pose>-71.65 -30.68 5.97 0 0 6.06</pose></include>  <!-- shore -->
+    <include><name>tree_103</name><uri>model://tree_oak_m</uri><pose>-77.84 -7.46 5.82 0 0 1.56</pose></include>  <!-- shore -->
+    <include><name>tree_104</name><uri>model://tree_oak_l</uri><pose>47.28 62.67 -0.07 0 0 1.48</pose></include>  <!-- shore -->
+    <include><name>tree_105</name><uri>model://tree_oak_l</uri><pose>-79.20 -2.44 5.69 0 0 4.44</pose></include>  <!-- shore -->
+    <include><name>tree_106</name><uri>model://tree_oak_l</uri><pose>18.33 77.70 -0.05 0 0 4.99</pose></include>  <!-- wood -->
+    <include><name>tree_107</name><uri>model://tree_oak_l</uri><pose>-69.58 -39.36 5.94 0 0 3.96</pose></include>  <!-- shore -->
+    <include><name>tree_108</name><uri>model://tree_oak_m</uri><pose>46.26 66.17 -0.03 0 0 2.03</pose></include>  <!-- wood -->
+    <include><name>tree_109</name><uri>model://tree_oak_l</uri><pose>38.79 70.83 -0.06 0 0 1.45</pose></include>  <!-- wood -->
+    <include><name>tree_110</name><uri>model://tree_oak_l</uri><pose>41.76 69.78 0.59 0 0 3.60</pose></include>  <!-- shore -->
+    <include><name>tree_111</name><uri>model://tree_oak_l</uri><pose>-65.94 -48.31 5.83 0 0 6.26</pose></include>  <!-- shore -->
+    <include><name>tree_112</name><uri>model://tree_oak_l</uri><pose>25.35 79.67 0.05 0 0 3.95</pose></include>  <!-- shore -->
+    <include><name>tree_113</name><uri>model://tree_oak_l</uri><pose>-69.44 -46.90 5.97 0 0 5.16</pose></include>  <!-- shore -->
+    <include><name>tree_114</name><uri>model://tree_oak_m</uri><pose>47.45 69.60 -0.16 0 0 1.48</pose></include>  <!-- wood -->
+    <include><name>tree_115</name><uri>model://tree_oak_m</uri><pose>-82.91 15.23 5.49 0 0 4.40</pose></include>  <!-- shore -->
+    <include><name>tree_116</name><uri>model://tree_oak_m</uri><pose>-84.30 7.10 5.81 0 0 0.54</pose></include>  <!-- shore -->
+    <include><name>tree_117</name><uri>model://tree_oak_m</uri><pose>-83.47 -18.71 6.16 0 0 0.01</pose></include>  <!-- shore -->
+    <include><name>tree_118</name><uri>model://tree_oak_l</uri><pose>-78.42 -38.68 6.29 0 0 0.26</pose></include>  <!-- shore -->
+    <include><name>tree_119</name><uri>model://tree_oak_s</uri><pose>-84.60 27.79 5.50 0 0 3.36</pose></include>  <!-- shore -->
+    <include><name>tree_120</name><uri>model://tree_oak_l</uri><pose>-68.73 -57.40 6.05 0 0 1.52</pose></include>  <!-- shore -->
+    <include><name>tree_121</name><uri>model://tree_oak_l</uri><pose>34.28 83.04 -0.09 0 0 2.41</pose></include>  <!-- wood -->
+    <include><name>tree_122</name><uri>model://tree_oak_s</uri><pose>-87.78 19.71 5.67 0 0 3.68</pose></include>  <!-- shore -->
+    <include><name>tree_123</name><uri>model://tree_oak_m</uri><pose>45.42 78.60 -0.26 0 0 4.99</pose></include>  <!-- wood -->
+    <include><name>tree_124</name><uri>model://tree_oak_s</uri><pose>27.15 86.96 -0.62 0 0 3.92</pose></include>  <!-- wood -->
+    <include><name>tree_125</name><uri>model://tree_oak_s</uri><pose>-12.20 -90.42 -0.09 0 0 2.94</pose></include>  <!-- shore -->
+    <include><name>tree_126</name><uri>model://tree_oak_s</uri><pose>-62.21 70.51 0.13 0 0 0.08</pose></include>  <!-- shore -->
+    <include><name>tree_127</name><uri>model://tree_oak_l</uri><pose>-66.77 -67.37 6.11 0 0 3.44</pose></include>  <!-- shore -->
+    <include><name>tree_128</name><uri>model://tree_oak_m</uri><pose>89.49 -31.76 0.57 0 0 4.29</pose></include>  <!-- shore -->
+    <include><name>tree_129</name><uri>model://tree_oak_l</uri><pose>-71.84 -64.54 7.14 0 0 5.05</pose></include>  <!-- shore -->
+    <include><name>tree_130</name><uri>model://tree_oak_m</uri><pose>79.27 -56.56 -0.50 0 0 5.32</pose></include>  <!-- shore -->
+    <include><name>tree_131</name><uri>model://tree_oak_s</uri><pose>-19.18 -98.80 0.89 0 0 1.78</pose></include>  <!-- shore -->
+    <include><name>tree_132</name><uri>model://tree_oak_s</uri><pose>77.70 -65.55 -0.26 0 0 2.58</pose></include>  <!-- shore -->
+    <include><name>tree_133</name><uri>model://tree_oak_m</uri><pose>-23.80 -99.43 1.62 0 0 3.96</pose></include>  <!-- shore -->
+    <include><name>tree_134</name><uri>model://tree_oak_m</uri><pose>-69.48 75.01 0.79 0 0 4.03</pose></include>  <!-- shore -->
+    <include><name>tree_135</name><uri>model://tree_oak_l</uri><pose>-69.24 79.70 0.09 0 0 1.27</pose></include>  <!-- shore -->
+    <include><name>tree_136</name><uri>model://tree_oak_s</uri><pose>110.22 -16.88 4.27 0 0 1.47</pose></include>  <!-- shore -->
+    <include><name>tree_137</name><uri>model://tree_oak_m</uri><pose>-78.65 81.08 0.65 0 0 4.02</pose></include>  <!-- shore -->
+    <include><name>tree_138</name><uri>model://tree_oak_m</uri><pose>-19.61 -113.99 1.42 0 0 1.08</pose></include>  <!-- shore -->
+    <include><name>tree_139</name><uri>model://tree_oak_s</uri><pose>69.73 -92.35 -0.24 0 0 1.51</pose></include>  <!-- shore -->
+    <include><name>tree_140</name><uri>model://tree_oak_m</uri><pose>116.70 -3.28 4.52 0 0 1.21</pose></include>  <!-- shore -->
+    <include><name>tree_141</name><uri>model://tree_oak_m</uri><pose>115.68 -22.51 4.28 0 0 2.28</pose></include>  <!-- shore -->
+    <include><name>tree_142</name><uri>model://tree_oak_s</uri><pose>-87.21 81.57 1.57 0 0 6.19</pose></include>  <!-- shore -->
+    <include><name>tree_143</name><uri>model://tree_oak_s</uri><pose>111.14 -45.19 4.12 0 0 2.77</pose></include>  <!-- shore -->
+    <include><name>tree_144</name><uri>model://tree_oak_s</uri><pose>69.06 -98.20 -0.01 0 0 4.00</pose></include>  <!-- shore -->
+    <include><name>tree_145</name><uri>model://tree_oak_m</uri><pose>-9.89 -119.83 0.30 0 0 2.70</pose></include>  <!-- shore -->
+    <include><name>tree_146</name><uri>model://tree_oak_m</uri><pose>119.45 14.28 4.62 0 0 3.09</pose></include>  <!-- shore -->
+    <include><name>tree_147</name><uri>model://tree_oak_s</uri><pose>101.33 -65.43 4.14 0 0 3.16</pose></include>  <!-- shore -->
+    <include><name>tree_148</name><uri>model://tree_oak_m</uri><pose>-18.75 -120.09 1.86 0 0 5.72</pose></include>  <!-- shore -->
+    <include><name>tree_149</name><uri>model://tree_oak_s</uri><pose>109.57 -54.11 4.12 0 0 1.80</pose></include>  <!-- shore -->
+    <include><name>tree_150</name><uri>model://tree_oak_m</uri><pose>93.13 -79.57 4.22 0 0 1.86</pose></include>  <!-- shore -->
+    <include><name>tree_151</name><uri>model://tree_oak_m</uri><pose>122.31 6.90 4.69 0 0 6.14</pose></include>  <!-- shore -->
+    <include><name>tree_152</name><uri>model://tree_oak_m</uri><pose>122.69 15.39 4.79 0 0 2.83</pose></include>  <!-- shore -->
+    <include><name>tree_153</name><uri>model://tree_oak_m</uri><pose>105.31 -67.66 4.21 0 0 4.78</pose></include>  <!-- shore -->
+    <include><name>tree_154</name><uri>model://tree_oak_s</uri><pose>-96.00 82.49 2.73 0 0 0.46</pose></include>  <!-- shore -->
+    <include><name>tree_155</name><uri>model://tree_oak_m</uri><pose>123.82 29.02 4.67 0 0 1.73</pose></include>  <!-- shore -->
+    <include><name>tree_156</name><uri>model://tree_oak_s</uri><pose>104.14 -73.51 4.84 0 0 4.14</pose></include>  <!-- shore -->
+    <include><name>tree_157</name><uri>model://tree_oak_m</uri><pose>-90.48 90.06 0.50 0 0 5.78</pose></include>  <!-- shore -->
+    <include><name>tree_158</name><uri>model://tree_oak_m</uri><pose>96.66 -84.41 4.22 0 0 4.65</pose></include>  <!-- shore -->
+    <include><name>tree_159</name><uri>model://tree_oak_m</uri><pose>65.19 -111.70 -0.34 0 0 0.51</pose></include>  <!-- shore -->
+    <include><name>tree_160</name><uri>model://tree_oak_m</uri><pose>91.54 -93.14 4.34 0 0 4.99</pose></include>  <!-- shore -->
+    <include><name>tree_161</name><uri>model://tree_oak_s</uri><pose>115.14 -64.27 6.08 0 0 1.97</pose></include>  <!-- shore -->
+    <include><name>tree_162</name><uri>model://tree_oak_l</uri><pose>69.63 -113.37 0.98 0 0 5.01</pose></include>  <!-- shore -->
+    <include><name>tree_163</name><uri>model://tree_oak_m</uri><pose>128.42 38.26 4.70 0 0 1.08</pose></include>  <!-- shore -->
+    <include><name>tree_164</name><uri>model://tree_oak_m</uri><pose>126.78 45.23 4.66 0 0 2.14</pose></include>  <!-- shore -->
+    <include><name>tree_165</name><uri>model://tree_oak_m</uri><pose>92.84 -98.11 4.42 0 0 5.73</pose></include>  <!-- shore -->
+    <include><name>tree_166</name><uri>model://tree_oak_s</uri><pose>-101.58 90.81 1.65 0 0 4.94</pose></include>  <!-- shore -->
+    <include><name>tree_167</name><uri>model://tree_oak_s</uri><pose>97.99 -95.43 4.51 0 0 5.43</pose></include>  <!-- shore -->
+    <include><name>tree_168</name><uri>model://tree_oak_m</uri><pose>-54.88 -126.15 5.76 0 0 1.11</pose></include>  <!-- shore -->
+    <include><name>tree_169</name><uri>model://tree_oak_s</uri><pose>116.94 -74.80 7.01 0 0 3.01</pose></include>  <!-- shore -->
+    <include><name>tree_170</name><uri>model://tree_oak_m</uri><pose>68.83 -121.07 1.02 0 0 5.44</pose></include>  <!-- shore -->
+    <include><name>tree_171</name><uri>model://tree_oak_m</uri><pose>-115.60 79.37 5.01 0 0 2.23</pose></include>  <!-- shore -->
+    <include><name>tree_172</name><uri>model://tree_oak_m</uri><pose>95.45 -103.09 4.65 0 0 1.74</pose></include>  <!-- shore -->
+    <include><name>tree_173</name><uri>model://tree_oak_m</uri><pose>127.91 -58.17 6.87 0 0 1.77</pose></include>  <!-- shore -->
+    <include><name>tree_174</name><uri>model://tree_oak_s</uri><pose>125.24 -64.17 7.08 0 0 1.88</pose></include>  <!-- shore -->
+    <include><name>tree_175</name><uri>model://tree_oak_s</uri><pose>-119.31 74.70 5.14 0 0 4.73</pose></include>  <!-- shore -->
+    <include><name>tree_176</name><uri>model://tree_oak_s</uri><pose>-105.30 93.44 2.55 0 0 5.12</pose></include>  <!-- shore -->
+    <include><name>tree_177</name><uri>model://tree_oak_m</uri><pose>132.44 53.48 4.70 0 0 0.81</pose></include>  <!-- shore -->
+    <include><name>tree_178</name><uri>model://tree_oak_m</uri><pose>-45.38 -136.11 5.67 0 0 2.15</pose></include>  <!-- shore -->
+    <include><name>tree_179</name><uri>model://tree_oak_m</uri><pose>127.54 66.42 3.90 0 0 0.81</pose></include>  <!-- shore -->
+    <include><name>tree_180</name><uri>model://tree_oak_m</uri><pose>91.40 -111.13 4.69 0 0 1.00</pose></include>  <!-- shore -->
+    <include><name>tree_181</name><uri>model://tree_oak_m</uri><pose>-102.32 101.92 -0.44 0 0 2.80</pose></include>  <!-- shore -->
+    <include><name>tree_182</name><uri>model://tree_oak_s</uri><pose>115.17 87.90 -0.00 0 0 0.00</pose></include>  <!-- shore -->
+    <include><name>tree_183</name><uri>model://tree_oak_s</uri><pose>125.27 73.28 2.83 0 0 5.56</pose></include>  <!-- shore -->
+    <include><name>tree_184</name><uri>model://tree_oak_m</uri><pose>-37.39 -140.79 5.45 0 0 2.63</pose></include>  <!-- shore -->
+    <include><name>tree_185</name><uri>model://tree_oak_l</uri><pose>-25.94 -143.73 4.04 0 0 4.42</pose></include>  <!-- shore -->
+    <include><name>tree_186</name><uri>model://tree_oak_m</uri><pose>108.72 97.69 0.42 0 0 5.11</pose></include>  <!-- shore -->
+    <include><name>tree_187</name><uri>model://tree_oak_m</uri><pose>98.12 -108.47 5.39 0 0 1.81</pose></include>  <!-- shore -->
+    <include><name>tree_188</name><uri>model://tree_oak_m</uri><pose>70.52 -130.09 1.53 0 0 4.25</pose></include>  <!-- shore -->
+    <include><name>tree_189</name><uri>model://tree_oak_m</uri><pose>1.39 -148.79 -0.61 0 0 5.06</pose></include>  <!-- shore -->
+    <include><name>tree_190</name><uri>model://tree_oak_s</uri><pose>87.22 -121.80 4.73 0 0 5.82</pose></include>  <!-- shore -->
+    <include><name>tree_191</name><uri>model://tree_oak_m</uri><pose>-34.57 -145.87 5.41 0 0 6.14</pose></include>  <!-- shore -->
+    <include><name>tree_192</name><uri>model://tree_oak_l</uri><pose>136.15 64.24 4.57 0 0 1.17</pose></include>  <!-- shore -->
+    <include><name>tree_193</name><uri>model://tree_oak_s</uri><pose>-126.17 82.21 4.94 0 0 0.71</pose></include>  <!-- shore -->
+    <include><name>tree_194</name><uri>model://tree_oak_s</uri><pose>92.62 119.04 -0.36 0 0 0.30</pose></include>  <!-- shore -->
+    <include><name>tree_195</name><uri>model://tree_oak_m</uri><pose>143.27 47.96 5.33 0 0 2.92</pose></include>  <!-- shore -->
+    <include><name>tree_196</name><uri>model://tree_oak_m</uri><pose>62.60 -137.59 -0.28 0 0 1.53</pose></include>  <!-- shore -->
+    <include><name>tree_197</name><uri>model://tree_oak_m</uri><pose>140.52 55.73 4.90 0 0 4.06</pose></include>  <!-- shore -->
+    <include><name>tree_198</name><uri>model://tree_oak_m</uri><pose>132.18 73.69 4.38 0 0 0.78</pose></include>  <!-- shore -->
+    <include><name>tree_199</name><uri>model://tree_oak_s</uri><pose>-56.93 -140.41 6.45 0 0 1.78</pose></include>  <!-- shore -->
+    <include><name>tree_200</name><uri>model://tree_oak_s</uri><pose>70.09 -135.78 1.61 0 0 5.00</pose></include>  <!-- shore -->
+    <include><name>tree_201</name><uri>model://tree_oak_m</uri><pose>-9.13 -153.83 1.77 0 0 0.81</pose></include>  <!-- shore -->
+    <include><name>tree_202</name><uri>model://tree_oak_m</uri><pose>97.01 -120.42 5.10 0 0 6.21</pose></include>  <!-- shore -->
+    <include><name>tree_203</name><uri>model://tree_oak_m</uri><pose>-114.80 106.33 1.61 0 0 3.79</pose></include>  <!-- shore -->
+    <include><name>tree_204</name><uri>model://tree_oak_s</uri><pose>-108.38 -113.69 7.12 0 0 2.14</pose></include>  <!-- tree -->
+    <include><name>tree_205</name><uri>model://tree_oak_m</uri><pose>135.47 79.68 4.42 0 0 4.59</pose></include>  <!-- shore -->
+    <include><name>tree_206</name><uri>model://tree_oak_m</uri><pose>91.60 -128.37 4.80 0 0 0.54</pose></include>  <!-- shore -->
+    <include><name>tree_207</name><uri>model://tree_oak_m</uri><pose>-3.71 -157.78 0.72 0 0 0.07</pose></include>  <!-- shore -->
+    <include><name>tree_208</name><uri>model://tree_oak_m</uri><pose>132.88 88.07 4.12 0 0 4.45</pose></include>  <!-- shore -->
+    <include><name>tree_209</name><uri>model://tree_oak_m</uri><pose>162.20 -2.22 8.25 0 0 5.30</pose></include>  <!-- tree -->
+    <include><name>tree_210</name><uri>model://tree_oak_m</uri><pose>99.17 -128.43 5.82 0 0 3.60</pose></include>  <!-- shore -->
+    <include><name>tree_211</name><uri>model://tree_oak_m</uri><pose>-3.58 -162.63 0.87 0 0 1.88</pose></include>  <!-- shore -->
+    <include><name>tree_212</name><uri>model://tree_oak_s</uri><pose>70.73 -148.89 1.92 0 0 4.75</pose></include>  <!-- shore -->
+    <include><name>tree_213</name><uri>model://tree_oak_m</uri><pose>145.21 78.21 4.63 0 0 0.64</pose></include>  <!-- shore -->
+    <include><name>tree_214</name><uri>model://tree_oak_m</uri><pose>90.42 -137.98 4.80 0 0 1.07</pose></include>  <!-- shore -->
+    <include><name>tree_215</name><uri>model://tree_oak_m</uri><pose>-117.74 116.29 1.16 0 0 3.93</pose></include>  <!-- shore -->
+    <include><name>tree_216</name><uri>model://tree_oak_m</uri><pose>165.64 5.64 8.41 0 0 2.14</pose></include>  <!-- tree -->
+    <include><name>tree_217</name><uri>model://tree_oak_m</uri><pose>-134.61 99.16 4.62 0 0 5.12</pose></include>  <!-- shore -->
+    <include><name>tree_218</name><uri>model://tree_oak_s</uri><pose>108.11 127.59 2.15 0 0 2.44</pose></include>  <!-- shore -->
+    <include><name>tree_219</name><uri>model://tree_oak_m</uri><pose>135.39 100.02 4.11 0 0 4.44</pose></include>  <!-- shore -->
+    <include><name>tree_220</name><uri>model://tree_oak_s</uri><pose>168.52 11.30 8.39 0 0 3.70</pose></include>  <!-- tree -->
+    <include><name>tree_221</name><uri>model://tree_oak_s</uri><pose>60.00 -158.07 -0.52 0 0 1.68</pose></include>  <!-- shore -->
+    <include><name>tree_222</name><uri>model://tree_oak_s</uri><pose>70.28 -154.57 2.07 0 0 0.91</pose></include>  <!-- shore -->
+    <include><name>tree_223</name><uri>model://tree_oak_m</uri><pose>-115.77 128.08 1.22 0 0 5.35</pose></include>  <!-- shore -->
+    <include><name>tree_224</name><uri>model://tree_oak_m</uri><pose>137.03 105.30 3.99 0 0 0.56</pose></include>  <!-- shore -->
+    <include><name>tree_225</name><uri>model://tree_oak_m</uri><pose>0.61 -175.11 0.52 0 0 2.10</pose></include>  <!-- shore -->
+    <include><name>tree_226</name><uri>model://tree_oak_m</uri><pose>-113.87 133.52 1.18 0 0 0.38</pose></include>  <!-- shore -->
+    <include><name>tree_227</name><uri>model://tree_oak_s</uri><pose>176.01 10.18 8.72 0 0 1.92</pose></include>  <!-- tree -->
+    <include><name>tree_228</name><uri>model://tree_oak_m</uri><pose>65.79 -166.72 1.03 0 0 4.31</pose></include>  <!-- shore -->
+    <include><name>tree_229</name><uri>model://tree_oak_m</uri><pose>177.04 27.95 7.90 0 0 5.72</pose></include>  <!-- tree -->
+    <include><name>tree_230</name><uri>model://tree_oak_s</uri><pose>-83.29 161.09 -0.35 0 0 1.79</pose></include>  <!-- shore -->
+    <include><name>tree_231</name><uri>model://tree_oak_m</uri><pose>62.63 -170.99 0.69 0 0 3.00</pose></include>  <!-- shore -->
+    <include><name>tree_232</name><uri>model://tree_oak_m</uri><pose>91.55 -159.04 5.26 0 0 5.95</pose></include>  <!-- shore -->
+    <include><name>tree_233</name><uri>model://tree_oak_m</uri><pose>96.01 -158.40 5.74 0 0 5.79</pose></include>  <!-- shore -->
+    <include><name>tree_234</name><uri>model://tree_oak_m</uri><pose>135.77 126.40 4.21 0 0 4.53</pose></include>  <!-- shore -->
+    <include><name>tree_235</name><uri>model://tree_oak_s</uri><pose>-71.19 171.65 -0.56 0 0 0.56</pose></include>  <!-- shore -->
+    <include><name>tree_236</name><uri>model://tree_oak_m</uri><pose>183.21 40.02 7.63 0 0 0.49</pose></include>  <!-- tree -->
+    <include><name>tree_237</name><uri>model://tree_oak_l</uri><pose>-36.05 -185.13 6.34 0 0 2.16</pose></include>  <!-- shore -->
+    <include><name>tree_238</name><uri>model://tree_oak_m</uri><pose>92.18 -165.33 5.33 0 0 0.75</pose></include>  <!-- shore -->
+    <include><name>tree_239</name><uri>model://tree_oak_m</uri><pose>179.69 -60.77 7.71 0 0 4.10</pose></include>  <!-- tree -->
+    <include><name>tree_240</name><uri>model://tree_oak_l</uri><pose>-47.46 -184.34 7.09 0 0 5.40</pose></include>  <!-- shore -->
+    <include><name>tree_241</name><uri>model://tree_oak_m</uri><pose>-144.78 123.60 4.35 0 0 4.94</pose></include>  <!-- shore -->
+    <include><name>tree_242</name><uri>model://tree_oak_m</uri><pose>-147.80 121.27 4.37 0 0 3.88</pose></include>  <!-- shore -->
+    <include><name>tree_243</name><uri>model://tree_oak_m</uri><pose>-62.31 182.22 -0.18 0 0 2.94</pose></include>  <!-- shore -->
+    <include><name>tree_244</name><uri>model://tree_oak_m</uri><pose>181.46 -66.37 7.14 0 0 3.98</pose></include>  <!-- tree -->
+    <include><name>tree_245</name><uri>model://tree_oak_s</uri><pose>138.15 135.34 4.37 0 0 2.62</pose></include>  <!-- shore -->
+    <include><name>tree_246</name><uri>model://tree_oak_s</uri><pose>187.47 48.32 7.29 0 0 4.91</pose></include>  <!-- tree -->
+    <include><name>tree_247</name><uri>model://tree_oak_m</uri><pose>-155.03 116.23 4.44 0 0 4.65</pose></include>  <!-- shore -->
+    <include><name>tree_248</name><uri>model://tree_oak_m</uri><pose>6.32 -193.90 -0.03 0 0 2.09</pose></include>  <!-- shore -->
+    <include><name>tree_249</name><uri>model://tree_oak_m</uri><pose>118.51 155.01 3.89 0 0 1.65</pose></include>  <!-- shore -->
+    <include><name>tree_250</name><uri>model://tree_oak_m</uri><pose>104.99 164.61 4.08 0 0 5.79</pose></include>  <!-- shore -->
+    <include><name>tree_251</name><uri>model://tree_oak_m</uri><pose>62.17 -185.09 0.76 0 0 5.62</pose></include>  <!-- shore -->
+    <include><name>tree_252</name><uri>model://tree_oak_m</uri><pose>92.41 -172.84 5.33 0 0 3.35</pose></include>  <!-- shore -->
+    <include><name>tree_253</name><uri>model://tree_oak_s</uri><pose>2.16 -196.20 0.56 0 0 4.29</pose></include>  <!-- shore -->
+    <include><name>tree_254</name><uri>model://tree_oak_l</uri><pose>-47.84 -190.43 7.00 0 0 0.89</pose></include>  <!-- shore -->
+    <include><name>tree_255</name><uri>model://tree_oak_m</uri><pose>101.60 169.87 4.33 0 0 3.41</pose></include>  <!-- shore -->
+    <include><name>tree_256</name><uri>model://tree_oak_m</uri><pose>-37.32 -194.90 6.82 0 0 4.93</pose></include>  <!-- shore -->
+    <include><name>tree_257</name><uri>model://tree_oak_l</uri><pose>10.67 -199.32 -0.72 0 0 0.11</pose></include>  <!-- shore -->
+    <include><name>tree_258</name><uri>model://tree_oak_s</uri><pose>191.91 58.07 6.75 0 0 4.38</pose></include>  <!-- tree -->
+    <include><name>tree_259</name><uri>model://tree_oak_m</uri><pose>113.67 165.96 4.25 0 0 3.90</pose></include>  <!-- shore -->
+    <include><name>tree_260</name><uri>model://tree_oak_m</uri><pose>89.93 -180.21 5.06 0 0 4.24</pose></include>  <!-- shore -->
+    <include><name>tree_261</name><uri>model://tree_oak_s</uri><pose>63.19 -193.14 1.35 0 0 2.27</pose></include>  <!-- shore -->
+    <include><name>tree_262</name><uri>model://tree_oak_s</uri><pose>-142.62 146.71 3.99 0 0 5.76</pose></include>  <!-- shore -->
+    <include><name>tree_263</name><uri>model://tree_oak_m</uri><pose>-36.07 -203.81 6.97 0 0 2.58</pose></include>  <!-- shore -->
+    <include><name>tree_264</name><uri>model://tree_oak_l</uri><pose>207.11 10.84 8.06 0 0 5.73</pose></include>  <!-- tree -->
+    <include><name>tree_265</name><uri>model://tree_oak_s</uri><pose>-127.24 163.94 3.99 0 0 0.12</pose></include>  <!-- shore -->
+    <include><name>tree_266</name><uri>model://tree_oak_s</uri><pose>-117.35 171.39 4.00 0 0 2.97</pose></include>  <!-- shore -->
+    <include><name>tree_267</name><uri>model://tree_oak_m</uri><pose>11.89 -208.26 -0.46 0 0 4.14</pose></include>  <!-- shore -->
+    <include><name>tree_268</name><uri>model://tree_oak_s</uri><pose>197.46 68.87 6.04 0 0 4.63</pose></include>  <!-- tree -->
+    <include><name>tree_269</name><uri>model://tree_oak_l</uri><pose>209.14 1.25 8.09 0 0 5.86</pose></include>  <!-- tree -->
+    <include><name>tree_270</name><uri>model://tree_oak_m</uri><pose>60.79 -200.49 0.66 0 0 1.97</pose></include>  <!-- shore -->
+    <include><name>tree_271</name><uri>model://tree_oak_m</uri><pose>209.80 -11.99 8.58 0 0 2.50</pose></include>  <!-- tree -->
+    <include><name>tree_272</name><uri>model://tree_oak_s</uri><pose>86.88 -191.49 4.81 0 0 5.12</pose></include>  <!-- shore -->
+    <include><name>tree_273</name><uri>model://tree_oak_m</uri><pose>-142.61 155.49 3.96 0 0 3.42</pose></include>  <!-- shore -->
+    <include><name>tree_274</name><uri>model://tree_oak_m</uri><pose>196.05 -80.09 7.53 0 0 3.13</pose></include>  <!-- tree -->
+    <include><name>tree_275</name><uri>model://tree_oak_s</uri><pose>-37.97 -211.96 6.90 0 0 0.28</pose></include>  <!-- shore -->
+    <include><name>tree_276</name><uri>model://tree_oak_s</uri><pose>196.88 -89.67 7.37 0 0 4.61</pose></include>  <!-- tree -->
+    <include><name>tree_277</name><uri>model://tree_oak_s</uri><pose>89.92 197.32 4.10 0 0 4.84</pose></include>  <!-- shore -->
+    <include><name>tree_278</name><uri>model://tree_oak_s</uri><pose>-84.24 -200.41 7.59 0 0 2.26</pose></include>  <!-- row -->
+    <include><name>tree_279</name><uri>model://tree_oak_m</uri><pose>217.91 -18.10 8.27 0 0 0.07</pose></include>  <!-- tree -->
+    <include><name>tree_280</name><uri>model://tree_oak_s</uri><pose>-123.79 180.41 3.60 0 0 3.46</pose></include>  <!-- shore -->
+    <include><name>tree_281</name><uri>model://tree_oak_s</uri><pose>-79.60 -206.93 7.49 0 0 4.75</pose></include>  <!-- row -->
+    <include><name>tree_282</name><uri>model://tree_oak_m</uri><pose>-12.30 -221.43 5.76 0 0 3.70</pose></include>  <!-- shore -->
+    <include><name>tree_283</name><uri>model://tree_oak_m</uri><pose>6.70 -223.66 1.49 0 0 2.95</pose></include>  <!-- shore -->
+    <include><name>tree_284</name><uri>model://tree_oak_s</uri><pose>-57.46 216.57 3.84 0 0 3.39</pose></include>  <!-- shore -->
+    <include><name>tree_285</name><uri>model://tree_oak_s</uri><pose>99.59 202.82 4.64 0 0 5.94</pose></include>  <!-- shore -->
+    <include><name>tree_286</name><uri>model://tree_oak_s</uri><pose>87.43 -208.35 4.76 0 0 0.04</pose></include>  <!-- shore -->
+    <include><name>tree_287</name><uri>model://tree_oak_s</uri><pose>-74.97 -213.45 7.31 0 0 0.24</pose></include>  <!-- row -->
+    <include><name>tree_288</name><uri>model://tree_oak_m</uri><pose>224.39 -32.63 8.21 0 0 5.65</pose></include>  <!-- tree -->
+    <include><name>tree_289</name><uri>model://tree_oak_s</uri><pose>-12.65 -226.51 5.76 0 0 3.98</pose></include>  <!-- shore -->
+    <include><name>tree_290</name><uri>model://tree_oak_m</uri><pose>227.41 -20.77 7.93 0 0 2.88</pose></include>  <!-- tree -->
+    <include><name>tree_291</name><uri>model://tree_oak_s</uri><pose>99.33 207.73 4.61 0 0 3.13</pose></include>  <!-- shore -->
+    <include><name>tree_292</name><uri>model://tree_oak_m</uri><pose>11.69 -230.15 0.75 0 0 4.52</pose></include>  <!-- shore -->
+    <include><name>tree_293</name><uri>model://tree_oak_s</uri><pose>-55.78 223.95 3.34 0 0 4.49</pose></include>  <!-- shore -->
+    <include><name>tree_294</name><uri>model://tree_oak_s</uri><pose>-97.56 -210.22 7.83 0 0 4.98</pose></include>  <!-- row -->
+    <include><name>tree_295</name><uri>model://tree_oak_s</uri><pose>-47.24 227.31 3.65 0 0 4.52</pose></include>  <!-- shore -->
+    <include><name>tree_296</name><uri>model://tree_oak_m</uri><pose>79.86 220.24 0.46 0 0 6.19</pose></include>  <!-- shore -->
+    <include><name>tree_297</name><uri>model://tree_oak_s</uri><pose>88.57 -218.05 4.93 0 0 3.47</pose></include>  <!-- shore -->
+    <include><name>tree_298</name><uri>model://tree_oak_m</uri><pose>227.98 59.76 7.58 0 0 3.12</pose></include>  <!-- tree -->
+    <include><name>tree_299</name><uri>model://tree_oak_s</uri><pose>-92.95 -216.76 7.68 0 0 0.53</pose></include>  <!-- row -->
+    <include><name>tree_300</name><uri>model://tree_oak_m</uri><pose>96.88 215.50 4.33 0 0 0.29</pose></include>  <!-- shore -->
+    <include><name>tree_301</name><uri>model://tree_oak_m</uri><pose>-63.37 229.18 2.53 0 0 3.32</pose></include>  <!-- shore -->
+    <include><name>tree_302</name><uri>model://tree_oak_m</uri><pose>15.05 -237.95 0.36 0 0 1.71</pose></include>  <!-- shore -->
+    <include><name>tree_303</name><uri>model://tree_oak_s</uri><pose>-43.07 234.78 3.22 0 0 4.31</pose></include>  <!-- shore -->
+    <include><name>tree_304</name><uri>model://tree_oak_m</uri><pose>237.71 -22.86 7.78 0 0 2.98</pose></include>  <!-- tree -->
+    <include><name>tree_305</name><uri>model://tree_oak_l</uri><pose>-16.32 -239.74 5.92 0 0 5.34</pose></include>  <!-- shore -->
+    <include><name>tree_306</name><uri>model://tree_oak_s</uri><pose>-39.44 238.20 2.97 0 0 5.73</pose></include>  <!-- shore -->
+    <include><name>tree_307</name><uri>model://tree_oak_s</uri><pose>10.92 -241.27 2.52 0 0 0.87</pose></include>  <!-- shore -->
+    <include><name>tree_308</name><uri>model://tree_oak_m</uri><pose>79.63 229.94 0.05 0 0 2.01</pose></include>  <!-- shore -->
+    <include><name>tree_309</name><uri>model://tree_oak_s</uri><pose>104.89 221.11 4.67 0 0 4.88</pose></include>  <!-- shore -->
+    <include><name>tree_310</name><uri>model://tree_oak_l</uri><pose>-15.72 -244.92 6.12 0 0 2.90</pose></include>  <!-- shore -->
+    <include><name>tree_311</name><uri>model://tree_oak_s</uri><pose>239.08 -55.48 7.75 0 0 4.07</pose></include>  <!-- tree -->
+    <include><name>tree_312</name><uri>model://tree_oak_s</uri><pose>-35.21 243.71 2.73 0 0 2.43</pose></include>  <!-- shore -->
+    <include><name>tree_313</name><uri>model://tree_oak_s</uri><pose>-111.81 -219.45 8.14 0 0 1.57</pose></include>  <!-- row -->
+    <include><name>tree_314</name><uri>model://tree_oak_m</uri><pose>-42.59 243.22 2.42 0 0 0.96</pose></include>  <!-- shore -->
+    <include><name>tree_315</name><uri>model://tree_oak_l</uri><pose>18.94 -247.07 0.18 0 0 6.02</pose></include>  <!-- shore -->
+    <include><name>tree_316</name><uri>model://tree_oak_m</uri><pose>56.98 -241.21 1.45 0 0 3.17</pose></include>  <!-- shore -->
+    <include><name>tree_317</name><uri>model://tree_oak_s</uri><pose>-107.19 -225.98 7.90 0 0 1.21</pose></include>  <!-- row -->
+    <include><name>tree_318</name><uri>model://tree_oak_l</uri><pose>52.69 -245.09 0.45 0 0 3.21</pose></include>  <!-- shore -->
+    <include><name>tree_319</name><uri>model://tree_oak_s</uri><pose>24.37 251.81 0.05 0 0 4.58</pose></include>  <!-- shore -->
+    <include><name>tree_320</name><uri>model://tree_oak_l</uri><pose>46.36 -249.16 0.08 0 0 4.86</pose></include>  <!-- shore -->
+    <include><name>tree_321</name><uri>model://tree_oak_s</uri><pose>-102.57 -232.51 7.78 0 0 4.01</pose></include>  <!-- row -->
+    <include><name>tree_322</name><uri>model://tree_oak_s</uri><pose>-28.70 252.71 2.28 0 0 3.47</pose></include>  <!-- shore -->
+    <include><name>tree_323</name><uri>model://tree_oak_s</uri><pose>241.04 -81.26 7.60 0 0 0.45</pose></include>  <!-- tree -->
+    <include><name>tree_324</name><uri>model://tree_oak_m</uri><pose>243.15 75.30 7.67 0 0 2.24</pose></include>  <!-- tree -->
+    <include><name>tree_325</name><uri>model://tree_oak_l</uri><pose>-12.34 -254.55 6.15 0 0 1.96</pose></include>  <!-- shore -->
+    <include><name>tree_326</name><uri>model://tree_oak_m</uri><pose>253.06 40.84 8.24 0 0 3.89</pose></include>  <!-- tree -->
+    <include><name>tree_327</name><uri>model://tree_oak_l</uri><pose>9.61 256.54 3.39 0 0 5.53</pose></include>  <!-- shore -->
+    <include><name>tree_328</name><uri>model://tree_oak_m</uri><pose>69.81 247.40 -0.69 0 0 3.48</pose></include>  <!-- shore -->
+    <include><name>tree_329</name><uri>model://tree_oak_s</uri><pose>36.66 254.66 -0.43 0 0 4.48</pose></include>  <!-- shore -->
+    <include><name>tree_330</name><uri>model://tree_oak_m</uri><pose>93.24 -240.32 5.24 0 0 0.60</pose></include>  <!-- shore -->
+    <include><name>tree_331</name><uri>model://tree_oak_m</uri><pose>247.28 73.64 7.83 0 0 2.22</pose></include>  <!-- tree -->
+    <include><name>tree_332</name><uri>model://tree_oak_l</uri><pose>15.47 257.74 2.77 0 0 5.84</pose></include>  <!-- shore -->
+    <include><name>tree_333</name><uri>model://tree_oak_m</uri><pose>27.60 -257.45 0.52 0 0 3.05</pose></include>  <!-- shore -->
+    <include><name>tree_334</name><uri>model://tree_oak_m</uri><pose>53.60 -254.74 2.62 0 0 0.72</pose></include>  <!-- shore -->
+    <include><name>tree_335</name><uri>model://tree_oak_m</uri><pose>14.65 -260.39 3.90 0 0 2.28</pose></include>  <!-- shore -->
+    <include><name>tree_336</name><uri>model://tree_oak_l</uri><pose>101.52 -240.51 5.98 0 0 2.92</pose></include>  <!-- shore -->
+    <include><name>tree_337</name><uri>model://tree_oak_m</uri><pose>37.36 -258.49 0.58 0 0 4.13</pose></include>  <!-- shore -->
+    <include><name>tree_338</name><uri>model://tree_oak_m</uri><pose>89.30 -245.84 5.03 0 0 3.85</pose></include>  <!-- shore -->
+    <include><name>tree_339</name><uri>model://tree_oak_s</uri><pose>251.62 -71.49 7.64 0 0 5.78</pose></include>  <!-- tree -->
+    <include><name>tree_340</name><uri>model://tree_oak_m</uri><pose>107.69 238.62 4.36 0 0 2.22</pose></include>  <!-- shore -->
+    <include><name>tree_341</name><uri>model://tree_oak_l</uri><pose>105.29 -241.10 6.10 0 0 0.29</pose></include>  <!-- shore -->
+    <include><name>tree_342</name><uri>model://tree_oak_m</uri><pose>254.22 72.83 8.06 0 0 3.41</pose></include>  <!-- tree -->
+    <include><name>tree_343</name><uri>model://tree_oak_m</uri><pose>106.98 242.92 4.31 0 0 2.47</pose></include>  <!-- shore -->
+    <include><name>tree_344</name><uri>model://tree_oak_l</uri><pose>11.77 265.95 3.54 0 0 4.31</pose></include>  <!-- shore -->
+    <include><name>tree_345</name><uri>model://tree_oak_s</uri><pose>-89.19 -251.38 7.74 0 0 2.92</pose></include>  <!-- tree -->
+    <include><name>tree_346</name><uri>model://tree_oak_l</uri><pose>15.15 267.00 3.69 0 0 1.92</pose></include>  <!-- shore -->
+    <include><name>tree_347</name><uri>model://tree_oak_m</uri><pose>97.78 -250.19 5.94 0 0 0.39</pose></include>  <!-- shore -->
+    <include><name>tree_348</name><uri>model://tree_oak_m</uri><pose>260.15 73.21 8.20 0 0 4.57</pose></include>  <!-- tree -->
+    <include><name>tree_349</name><uri>model://tree_oak_s</uri><pose>29.03 -269.06 4.29 0 0 5.54</pose></include>  <!-- shore -->
+    <include><name>tree_350</name><uri>model://tree_oak_m</uri><pose>268.98 34.02 9.17 0 0 4.80</pose></include>  <!-- tree -->
+    <include><name>tree_351</name><uri>model://tree_oak_s</uri><pose>263.03 67.01 8.33 0 0 3.52</pose></include>  <!-- tree -->
+    <include><name>tree_352</name><uri>model://tree_oak_s</uri><pose>34.42 -269.48 2.99 0 0 3.59</pose></include>  <!-- shore -->
+    <include><name>tree_353</name><uri>model://tree_oak_s</uri><pose>253.57 -98.83 8.69 0 0 1.70</pose></include>  <!-- tree -->
+    <include><name>tree_354</name><uri>model://tree_oak_l</uri><pose>12.01 272.22 3.20 0 0 1.32</pose></include>  <!-- shore -->
+    <include><name>tree_355</name><uri>model://tree_oak_m</uri><pose>17.69 272.52 3.51 0 0 2.53</pose></include>  <!-- shore -->
+    <include><name>tree_356</name><uri>model://tree_oak_m</uri><pose>271.71 29.30 9.53 0 0 0.44</pose></include>  <!-- tree -->
+    <include><name>tree_357</name><uri>model://tree_oak_m</uri><pose>258.46 96.18 8.08 0 0 1.91</pose></include>  <!-- tree -->
+    <include><name>tree_358</name><uri>model://tree_oak_m</uri><pose>260.84 92.43 8.27 0 0 0.32</pose></include>  <!-- tree -->
+    <include><name>tree_359</name><uri>model://tree_oak_m</uri><pose>5.27 -277.37 5.72 0 0 1.56</pose></include>  <!-- shore -->
+    <include><name>tree_360</name><uri>model://tree_oak_l</uri><pose>38.61 -274.92 3.55 0 0 3.81</pose></include>  <!-- shore -->
+    <include><name>tree_361</name><uri>model://tree_oak_l</uri><pose>277.39 32.34 9.43 0 0 3.78</pose></include>  <!-- tree -->
+    <include><name>tree_362</name><uri>model://tree_oak_m</uri><pose>82.49 -266.91 4.87 0 0 4.52</pose></include>  <!-- shore -->
+    <include><name>tree_363</name><uri>model://tree_oak_m</uri><pose>273.74 58.49 8.84 0 0 2.76</pose></include>  <!-- tree -->
+    <include><name>tree_364</name><uri>model://tree_oak_l</uri><pose>20.46 279.32 3.13 0 0 5.08</pose></include>  <!-- shore -->
+    <include><name>tree_365</name><uri>model://tree_oak_m</uri><pose>277.34 39.51 9.17 0 0 5.65</pose></include>  <!-- tree -->
+    <include><name>tree_366</name><uri>model://tree_oak_m</uri><pose>261.80 -103.13 8.82 0 0 4.65</pose></include>  <!-- tree -->
+    <include><name>tree_367</name><uri>model://tree_oak_m</uri><pose>36.95 279.77 4.26 0 0 2.87</pose></include>  <!-- shore -->
+    <include><name>tree_368</name><uri>model://tree_oak_m</uri><pose>268.80 89.72 8.43 0 0 3.19</pose></include>  <!-- tree -->
+    <include><name>tree_369</name><uri>model://tree_oak_m</uri><pose>277.36 59.17 8.97 0 0 0.38</pose></include>  <!-- tree -->
+    <include><name>tree_370</name><uri>model://tree_oak_m</uri><pose>26.54 -284.31 5.32 0 0 4.12</pose></include>  <!-- shore -->
+    <include><name>tree_371</name><uri>model://tree_oak_l</uri><pose>77.61 -274.81 4.85 0 0 2.40</pose></include>  <!-- shore -->
+    <include><name>tree_372</name><uri>model://tree_oak_m</uri><pose>29.95 284.08 3.53 0 0 6.04</pose></include>  <!-- shore -->
+    <include><name>tree_373</name><uri>model://tree_oak_m</uri><pose>284.13 30.25 9.76 0 0 3.16</pose></include>  <!-- tree -->
+    <include><name>tree_374</name><uri>model://tree_oak_l</uri><pose>34.33 -283.82 3.20 0 0 1.01</pose></include>  <!-- shore -->
+    <include><name>tree_375</name><uri>model://tree_oak_s</uri><pose>-217.86 185.66 5.21 0 0 2.48</pose></include>  <!-- tree -->
+    <include><name>tree_376</name><uri>model://tree_oak_m</uri><pose>7.85 -286.28 5.77 0 0 1.93</pose></include>  <!-- shore -->
+    <include><name>tree_377</name><uri>model://tree_oak_l</uri><pose>-20.91 -286.01 6.67 0 0 3.62</pose></include>  <!-- row -->
+    <include><name>tree_378</name><uri>model://tree_oak_s</uri><pose>7.06 288.81 1.46 0 0 4.27</pose></include>  <!-- shore -->
+    <include><name>tree_379</name><uri>model://tree_oak_m</uri><pose>-222.39 184.42 5.61 0 0 3.18</pose></include>  <!-- tree -->
+    <include><name>tree_380</name><uri>model://tree_oak_m</uri><pose>282.72 59.56 9.12 0 0 3.69</pose></include>  <!-- tree -->
+    <include><name>tree_381</name><uri>model://tree_oak_l</uri><pose>45.64 -285.62 4.47 0 0 1.75</pose></include>  <!-- shore -->
+    <include><name>tree_382</name><uri>model://tree_oak_m</uri><pose>29.10 287.98 2.63 0 0 0.60</pose></include>  <!-- shore -->
+    <include><name>tree_383</name><uri>model://tree_oak_m</uri><pose>289.17 25.21 10.10 0 0 4.70</pose></include>  <!-- tree -->
+    <include><name>tree_384</name><uri>model://tree_oak_m</uri><pose>277.33 85.80 8.76 0 0 3.97</pose></include>  <!-- tree -->
+    <include><name>tree_385</name><uri>model://tree_oak_s</uri><pose>98.75 273.17 4.17 0 0 0.97</pose></include>  <!-- shore -->
+    <include><name>tree_386</name><uri>model://tree_oak_m</uri><pose>241.05 -162.54 9.53 0 0 0.67</pose></include>  <!-- tree -->
+    <include><name>tree_387</name><uri>model://tree_oak_m</uri><pose>281.35 77.61 8.97 0 0 2.84</pose></include>  <!-- tree -->
+    <include><name>tree_388</name><uri>model://tree_oak_m</uri><pose>17.18 291.87 1.58 0 0 6.21</pose></include>  <!-- shore -->
+    <include><name>tree_389</name><uri>model://tree_oak_m</uri><pose>27.04 -291.40 5.31 0 0 0.69</pose></include>  <!-- shore -->
+    <include><name>tree_390</name><uri>model://tree_oak_l</uri><pose>292.65 0.86 10.72 0 0 6.19</pose></include>  <!-- tree -->
+    <include><name>tree_391</name><uri>model://tree_oak_s</uri><pose>14.36 -292.41 5.95 0 0 0.24</pose></include>  <!-- shore -->
+    <include><name>tree_392</name><uri>model://tree_oak_m</uri><pose>44.60 289.45 4.67 0 0 3.51</pose></include>  <!-- shore -->
+    <include><name>tree_393</name><uri>model://tree_oak_l</uri><pose>-16.41 -292.63 6.69 0 0 4.05</pose></include>  <!-- row -->
+    <include><name>tree_394</name><uri>model://tree_oak_l</uri><pose>33.04 291.47 2.43 0 0 5.00</pose></include>  <!-- shore -->
+    <include><name>tree_395</name><uri>model://tree_oak_m</uri><pose>288.10 55.85 9.25 0 0 4.64</pose></include>  <!-- tree -->
+    <include><name>tree_396</name><uri>model://tree_oak_m</uri><pose>247.00 -160.37 9.72 0 0 0.92</pose></include>  <!-- tree -->
+    <include><name>tree_397</name><uri>model://tree_oak_l</uri><pose>41.49 -292.75 3.82 0 0 5.95</pose></include>  <!-- shore -->
+    <include><name>tree_398</name><uri>model://tree_oak_m</uri><pose>295.07 21.12 10.34 0 0 2.29</pose></include>  <!-- tree -->
+    <include><name>tree_399</name><uri>model://tree_oak_s</uri><pose>52.55 292.17 4.31 0 0 1.19</pose></include>  <!-- shore -->
+    <include><name>tree_400</name><uri>model://tree_oak_m</uri><pose>292.87 48.65 9.40 0 0 2.93</pose></include>  <!-- tree -->
+    <include><name>tree_401</name><uri>model://tree_oak_l</uri><pose>276.61 -111.39 9.59 0 0 0.97</pose></include>  <!-- tree -->
+    <include><name>tree_402</name><uri>model://tree_oak_l</uri><pose>38.46 -296.31 3.32 0 0 2.01</pose></include>  <!-- shore -->
+    <include><name>tree_403</name><uri>model://tree_oak_l</uri><pose>-11.91 -299.24 6.65 0 0 5.33</pose></include>  <!-- row -->
+    <include><name>tree_404</name><uri>model://tree_oak_m</uri><pose>289.40 80.39 9.18 0 0 1.91</pose></include>  <!-- tree -->
+    <include><name>tree_405</name><uri>model://tree_oak_m</uri><pose>47.76 297.13 3.78 0 0 1.13</pose></include>  <!-- shore -->
+    <include><name>tree_406</name><uri>model://tree_oak_m</uri><pose>296.72 52.60 9.54 0 0 5.50</pose></include>  <!-- tree -->
+    <include><name>tree_407</name><uri>model://tree_oak_s</uri><pose>296.43 56.88 9.44 0 0 2.27</pose></include>  <!-- tree -->
+    <include><name>tree_408</name><uri>model://tree_oak_l</uri><pose>37.67 -301.39 3.72 0 0 0.18</pose></include>  <!-- shore -->
+    <include><name>tree_409</name><uri>model://tree_oak_m</uri><pose>302.75 25.83 10.14 0 0 0.88</pose></include>  <!-- tree -->
+    <include><name>tree_410</name><uri>model://tree_oak_m</uri><pose>293.90 77.51 9.42 0 0 4.14</pose></include>  <!-- tree -->
+    <include><name>tree_411</name><uri>model://tree_oak_l</uri><pose>-36.26 302.07 0.44 0 0 1.41</pose></include>  <!-- wood -->
+    <include><name>tree_412</name><uri>model://tree_oak_l</uri><pose>-27.88 303.88 1.30 0 0 3.40</pose></include>  <!-- wood -->
+    <include><name>tree_413</name><uri>model://tree_oak_m</uri><pose>301.29 48.71 9.61 0 0 2.53</pose></include>  <!-- tree -->
+    <include><name>tree_414</name><uri>model://tree_oak_m</uri><pose>-7.41 -305.86 6.51 0 0 3.56</pose></include>  <!-- row -->
+    <include><name>tree_415</name><uri>model://tree_oak_m</uri><pose>262.27 -157.91 10.06 0 0 1.21</pose></include>  <!-- tree -->
+    <include><name>tree_416</name><uri>model://tree_oak_s</uri><pose>-167.19 -257.34 9.49 0 0 0.69</pose></include>  <!-- tree -->
+    <include><name>tree_417</name><uri>model://tree_oak_l</uri><pose>51.38 302.89 3.17 0 0 1.93</pose></include>  <!-- shore -->
+    <include><name>tree_418</name><uri>model://tree_oak_l</uri><pose>59.22 301.67 3.23 0 0 4.13</pose></include>  <!-- shore -->
+    <include><name>tree_419</name><uri>model://tree_oak_l</uri><pose>41.99 -304.76 3.40 0 0 5.44</pose></include>  <!-- shore -->
+    <include><name>tree_420</name><uri>model://tree_oak_m</uri><pose>-43.10 307.29 1.07 0 0 5.89</pose></include>  <!-- wood -->
+    <include><name>tree_421</name><uri>model://tree_oak_s</uri><pose>-170.68 -259.73 9.62 0 0 2.66</pose></include>  <!-- tree -->
+    <include><name>tree_422</name><uri>model://tree_oak_m</uri><pose>308.11 40.84 9.92 0 0 1.05</pose></include>  <!-- tree -->
+    <include><name>tree_423</name><uri>model://tree_oak_l</uri><pose>-30.31 310.69 -0.61 0 0 5.11</pose></include>  <!-- wood -->
+    <include><name>tree_424</name><uri>model://tree_oak_m</uri><pose>303.56 73.14 9.75 0 0 1.75</pose></include>  <!-- tree -->
+    <include><name>tree_425</name><uri>model://tree_oak_s</uri><pose>-2.91 -312.47 6.65 0 0 5.15</pose></include>  <!-- row -->
+    <include><name>tree_426</name><uri>model://tree_oak_m</uri><pose>293.04 -109.13 8.05 0 0 0.09</pose></include>  <!-- tree -->
+    <include><name>tree_427</name><uri>model://tree_oak_m</uri><pose>270.64 -157.83 10.27 0 0 4.69</pose></include>  <!-- tree -->
+    <include><name>tree_428</name><uri>model://tree_oak_l</uri><pose>-35.95 311.54 -0.09 0 0 1.45</pose></include>  <!-- wood -->
+    <include><name>tree_429</name><uri>model://tree_oak_l</uri><pose>314.11 9.26 10.86 0 0 1.15</pose></include>  <!-- tree -->
+    <include><name>tree_430</name><uri>model://tree_oak_l</uri><pose>34.66 -312.55 5.82 0 0 3.83</pose></include>  <!-- shore -->
+    <include><name>tree_431</name><uri>model://tree_oak_l</uri><pose>65.87 307.78 2.91 0 0 2.61</pose></include>  <!-- shore -->
+    <include><name>tree_432</name><uri>model://tree_oak_s</uri><pose>311.90 48.40 10.00 0 0 3.04</pose></include>  <!-- tree -->
+    <include><name>tree_433</name><uri>model://tree_oak_m</uri><pose>312.74 44.52 10.12 0 0 3.77</pose></include>  <!-- tree -->
+    <include><name>tree_434</name><uri>model://tree_oak_s</uri><pose>-160.28 -272.83 9.28 0 0 3.95</pose></include>  <!-- row -->
+    <include><name>tree_435</name><uri>model://tree_oak_m</uri><pose>315.89 20.54 10.48 0 0 4.40</pose></include>  <!-- tree -->
+    <include><name>tree_436</name><uri>model://tree_oak_l</uri><pose>51.60 312.70 2.04 0 0 3.37</pose></include>  <!-- shore -->
+    <include><name>tree_437</name><uri>model://tree_oak_l</uri><pose>-20.67 316.73 1.39 0 0 5.92</pose></include>  <!-- wood -->
+    <include><name>tree_438</name><uri>model://tree_oak_m</uri><pose>276.81 -158.09 10.56 0 0 4.77</pose></include>  <!-- tree -->
+    <include><name>tree_439</name><uri>model://tree_oak_l</uri><pose>-9.85 318.79 1.54 0 0 4.29</pose></include>  <!-- wood -->
+    <include><name>tree_440</name><uri>model://tree_oak_s</uri><pose>1.59 -319.09 6.64 0 0 1.36</pose></include>  <!-- row -->
+    <include><name>tree_441</name><uri>model://tree_oak_l</uri><pose>310.95 72.24 9.94 0 0 5.42</pose></include>  <!-- tree -->
+    <include><name>tree_442</name><uri>model://tree_oak_l</uri><pose>-26.00 320.49 0.96 0 0 5.12</pose></include>  <!-- wood -->
+    <include><name>tree_443</name><uri>model://tree_oak_l</uri><pose>-44.09 318.90 0.15 0 0 2.58</pose></include>  <!-- wood -->
+    <include><name>tree_444</name><uri>model://tree_oak_m</uri><pose>316.69 60.21 10.12 0 0 0.46</pose></include>  <!-- tree -->
+    <include><name>tree_445</name><uri>model://tree_oak_m</uri><pose>322.17 12.49 10.95 0 0 4.73</pose></include>  <!-- tree -->
+    <include><name>tree_446</name><uri>model://tree_oak_l</uri><pose>-35.86 320.69 1.10 0 0 1.06</pose></include>  <!-- wood -->
+    <include><name>tree_447</name><uri>model://tree_oak_s</uri><pose>-166.86 -277.40 9.47 0 0 0.25</pose></include>  <!-- row -->
+    <include><name>tree_448</name><uri>model://tree_oak_m</uri><pose>210.82 -246.03 9.19 0 0 6.12</pose></include>  <!-- tree -->
+    <include><name>tree_449</name><uri>model://tree_oak_s</uri><pose>-150.97 -286.68 9.16 0 0 2.48</pose></include>  <!-- row -->
+    <include><name>tree_450</name><uri>model://tree_oak_s</uri><pose>217.93 -240.15 9.51 0 0 2.94</pose></include>  <!-- tree -->
+    <include><name>tree_451</name><uri>model://tree_oak_s</uri><pose>323.52 33.74 10.40 0 0 2.78</pose></include>  <!-- tree -->
+    <include><name>tree_452</name><uri>model://tree_oak_m</uri><pose>325.86 5.84 11.06 0 0 3.37</pose></include>  <!-- tree -->
+    <include><name>tree_453</name><uri>model://tree_oak_l</uri><pose>0.34 326.40 1.88 0 0 0.73</pose></include>  <!-- wood -->
+    <include><name>tree_454</name><uri>model://tree_oak_l</uri><pose>-29.48 325.37 1.17 0 0 0.50</pose></include>  <!-- wood -->
+    <include><name>tree_455</name><uri>model://tree_oak_m</uri><pose>283.05 -163.71 10.75 0 0 0.33</pose></include>  <!-- tree -->
+    <include><name>tree_456</name><uri>model://tree_oak_l</uri><pose>-21.77 327.77 1.38 0 0 6.21</pose></include>  <!-- wood -->
+    <include><name>tree_457</name><uri>model://tree_oak_m</uri><pose>208.71 -253.80 9.00 0 0 6.24</pose></include>  <!-- tree -->
+    <include><name>tree_458</name><uri>model://tree_oak_m</uri><pose>322.44 64.71 10.43 0 0 5.64</pose></include>  <!-- tree -->
+    <include><name>tree_459</name><uri>model://tree_oak_s</uri><pose>-3.89 -329.46 6.65 0 0 3.84</pose></include>  <!-- row -->
+    <include><name>tree_460</name><uri>model://tree_oak_l</uri><pose>-44.69 326.58 -0.03 0 0 1.16</pose></include>  <!-- wood -->
+    <include><name>tree_461</name><uri>model://tree_oak_m</uri><pose>327.84 36.12 10.63 0 0 4.22</pose></include>  <!-- tree -->
+    <include><name>tree_462</name><uri>model://tree_oak_m</uri><pose>327.31 42.98 10.48 0 0 1.45</pose></include>  <!-- tree -->
+    <include><name>tree_463</name><uri>model://tree_oak_m</uri><pose>319.88 -82.60 10.63 0 0 5.22</pose></include>  <!-- tree -->
+    <include><name>tree_464</name><uri>model://tree_oak_l</uri><pose>-6.58 330.47 1.57 0 0 2.53</pose></include>  <!-- wood -->
+    <include><name>tree_465</name><uri>model://tree_oak_s</uri><pose>-157.50 -291.31 9.36 0 0 3.37</pose></include>  <!-- row -->
+    <include><name>tree_466</name><uri>model://tree_oak_m</uri><pose>290.53 -160.12 10.78 0 0 3.07</pose></include>  <!-- tree -->
+    <include><name>tree_467</name><uri>model://tree_oak_l</uri><pose>-54.76 327.43 0.52 0 0 2.27</pose></include>  <!-- wood -->
+    <include><name>tree_468</name><uri>model://tree_oak_l</uri><pose>-34.17 330.98 0.39 0 0 1.50</pose></include>  <!-- wood -->
+    <include><name>tree_469</name><uri>model://tree_oak_s</uri><pose>-10.56 -333.88 6.77 0 0 0.95</pose></include>  <!-- row -->
+    <include><name>tree_470</name><uri>model://tree_oak_m</uri><pose>-10.58 334.73 1.53 0 0 2.47</pose></include>  <!-- wood -->
+    <include><name>tree_471</name><uri>model://tree_oak_m</uri><pose>295.16 -158.25 10.87 0 0 0.37</pose></include>  <!-- tree -->
+    <include><name>tree_472</name><uri>model://tree_oak_l</uri><pose>-59.79 329.54 0.54 0 0 5.84</pose></include>  <!-- wood -->
+    <include><name>tree_473</name><uri>model://tree_oak_m</uri><pose>329.82 60.79 10.67 0 0 0.72</pose></include>  <!-- tree -->
+    <include><name>tree_474</name><uri>model://tree_oak_l</uri><pose>-3.35 335.38 1.81 0 0 5.80</pose></include>  <!-- wood -->
+    <include><name>tree_475</name><uri>model://tree_oak_m</uri><pose>-14.95 335.31 1.55 0 0 5.13</pose></include>  <!-- wood -->
+    <include><name>tree_476</name><uri>model://tree_oak_m</uri><pose>336.22 1.18 11.31 0 0 5.32</pose></include>  <!-- tree -->
+    <include><name>tree_477</name><uri>model://tree_oak_l</uri><pose>-36.13 334.33 0.39 0 0 0.13</pose></include>  <!-- wood -->
+    <include><name>tree_478</name><uri>model://tree_oak_m</uri><pose>332.28 53.42 10.78 0 0 1.17</pose></include>  <!-- tree -->
+    <include><name>tree_479</name><uri>model://tree_oak_l</uri><pose>-26.60 335.77 1.08 0 0 2.30</pose></include>  <!-- wood -->
+    <include><name>tree_480</name><uri>model://tree_oak_m</uri><pose>327.98 -76.82 10.86 0 0 0.63</pose></include>  <!-- tree -->
+    <include><name>tree_481</name><uri>model://tree_oak_m</uri><pose>335.32 33.69 10.80 0 0 4.26</pose></include>  <!-- tree -->
+    <include><name>tree_482</name><uri>model://tree_oak_s</uri><pose>-17.24 -338.30 7.08 0 0 1.51</pose></include>  <!-- row -->
+    <include><name>tree_483</name><uri>model://tree_oak_l</uri><pose>-45.35 336.22 -0.30 0 0 2.27</pose></include>  <!-- wood -->
+    <include><name>tree_484</name><uri>model://tree_oak_s</uri><pose>338.55 27.55 10.80 0 0 3.28</pose></include>  <!-- tree -->
+    <include><name>tree_485</name><uri>model://tree_oak_m</uri><pose>334.10 -63.64 11.20 0 0 2.63</pose></include>  <!-- tree -->
+    <include><name>tree_486</name><uri>model://tree_oak_s</uri><pose>118.89 -319.00 6.74 0 0 5.10</pose></include>  <!-- row -->
+    <include><name>tree_487</name><uri>model://tree_oak_m</uri><pose>12.26 340.44 1.97 0 0 6.11</pose></include>  <!-- wood -->
+    <include><name>tree_488</name><uri>model://tree_oak_m</uri><pose>340.96 6.15 11.37 0 0 6.00</pose></include>  <!-- tree -->
+    <include><name>tree_489</name><uri>model://tree_oak_l</uri><pose>8.45 -341.45 6.62 0 0 5.64</pose></include>  <!-- row -->
+    <include><name>tree_490</name><uri>model://tree_oak_l</uri><pose>-52.49 337.62 -0.40 0 0 1.71</pose></include>  <!-- wood -->
+    <include><name>tree_491</name><uri>model://tree_oak_m</uri><pose>342.82 0.09 11.32 0 0 4.80</pose></include>  <!-- tree -->
+    <include><name>tree_492</name><uri>model://tree_oak_l</uri><pose>-3.60 342.95 1.91 0 0 0.58</pose></include>  <!-- wood -->
+    <include><name>tree_493</name><uri>model://tree_oak_m</uri><pose>126.91 -318.75 7.10 0 0 5.16</pose></include>  <!-- row -->
+    <include><name>tree_494</name><uri>model://tree_oak_m</uri><pose>231.54 -253.59 10.01 0 0 3.17</pose></include>  <!-- tree -->
+    <include><name>tree_495</name><uri>model://tree_oak_m</uri><pose>304.01 -159.73 11.06 0 0 4.61</pose></include>  <!-- tree -->
+    <include><name>tree_496</name><uri>model://tree_oak_s</uri><pose>-23.91 -342.73 7.52 0 0 4.88</pose></include>  <!-- row -->
+    <include><name>tree_497</name><uri>model://tree_oak_m</uri><pose>6.83 343.72 1.94 0 0 4.55</pose></include>  <!-- wood -->
+    <include><name>tree_498</name><uri>model://tree_oak_m</uri><pose>-134.43 -316.62 8.25 0 0 4.57</pose></include>  <!-- tree -->
+    <include><name>tree_499</name><uri>model://tree_oak_m</uri><pose>339.92 56.36 11.03 0 0 5.25</pose></include>  <!-- tree -->
+    <include><name>tree_500</name><uri>model://tree_oak_l</uri><pose>-26.35 344.30 1.32 0 0 5.76</pose></include>  <!-- wood -->
+    <include><name>tree_501</name><uri>model://tree_oak_s</uri><pose>219.83 -266.47 9.45 0 0 1.98</pose></include>  <!-- tree -->
+    <include><name>tree_502</name><uri>model://tree_oak_s</uri><pose>343.92 35.38 11.06 0 0 2.51</pose></include>  <!-- tree -->
+    <include><name>tree_503</name><uri>model://tree_oak_m</uri><pose>134.92 -318.50 7.38 0 0 0.96</pose></include>  <!-- row -->
+    <include><name>tree_504</name><uri>model://tree_oak_l</uri><pose>1.86 -346.00 6.75 0 0 1.28</pose></include>  <!-- row -->
+    <include><name>tree_505</name><uri>model://tree_oak_m</uri><pose>215.25 -271.22 9.10 0 0 4.40</pose></include>  <!-- tree -->
+    <include><name>tree_506</name><uri>model://tree_oak_l</uri><pose>-34.95 344.62 0.96 0 0 2.95</pose></include>  <!-- wood -->
+    <include><name>tree_507</name><uri>model://tree_oak_m</uri><pose>308.90 -157.10 11.03 0 0 0.10</pose></include>  <!-- tree -->
+    <include><name>tree_508</name><uri>model://tree_oak_l</uri><pose>-18.40 346.31 1.97 0 0 4.53</pose></include>  <!-- wood -->
+    <include><name>tree_509</name><uri>model://tree_oak_s</uri><pose>210.39 -275.97 9.01 0 0 3.94</pose></include>  <!-- tree -->
+    <include><name>tree_510</name><uri>model://tree_oak_l</uri><pose>23.26 346.75 2.21 0 0 1.20</pose></include>  <!-- wood -->
+    <include><name>tree_511</name><uri>model://tree_oak_l</uri><pose>-8.46 347.73 1.99 0 0 0.35</pose></include>  <!-- wood -->
+    <include><name>tree_512</name><uri>model://tree_oak_m</uri><pose>339.71 -74.94 11.37 0 0 3.29</pose></include>  <!-- tree -->
+    <include><name>tree_513</name><uri>model://tree_oak_m</uri><pose>206.08 -280.71 8.87 0 0 1.97</pose></include>  <!-- tree -->
+    <include><name>tree_514</name><uri>model://tree_oak_m</uri><pose>348.32 3.02 11.57 0 0 2.38</pose></include>  <!-- tree -->
+    <include><name>tree_515</name><uri>model://tree_oak_s</uri><pose>-30.59 -347.15 7.71 0 0 2.57</pose></include>  <!-- row -->
+    <include><name>tree_516</name><uri>model://tree_oak_m</uri><pose>341.76 -69.79 11.94 0 0 5.02</pose></include>  <!-- tree -->
+    <include><name>tree_517</name><uri>model://tree_oak_s</uri><pose>142.93 -318.25 7.71 0 0 3.93</pose></include>  <!-- row -->
+    <include><name>tree_518</name><uri>model://tree_oak_l</uri><pose>-42.25 346.45 0.28 0 0 1.47</pose></include>  <!-- wood -->
+    <include><name>tree_519</name><uri>model://tree_oak_s</uri><pose>200.15 -286.72 8.96 0 0 4.30</pose></include>  <!-- tree -->
+    <include><name>tree_520</name><uri>model://tree_oak_s</uri><pose>349.38 26.42 11.37 0 0 0.44</pose></include>  <!-- tree -->
+    <include><name>tree_521</name><uri>model://tree_oak_m</uri><pose>350.37 -2.97 11.58 0 0 3.58</pose></include>  <!-- tree -->
+    <include><name>tree_522</name><uri>model://tree_oak_l</uri><pose>-4.73 -350.54 6.92 0 0 3.42</pose></include>  <!-- row -->
+    <include><name>tree_523</name><uri>model://tree_oak_l</uri><pose>15.40 -350.69 6.72 0 0 0.38</pose></include>  <!-- row -->
+    <include><name>tree_524</name><uri>model://tree_oak_m</uri><pose>345.58 61.85 10.81 0 0 5.86</pose></include>  <!-- tree -->
+    <include><name>tree_525</name><uri>model://tree_oak_s</uri><pose>193.68 -293.17 9.07 0 0 2.34</pose></include>  <!-- tree -->
+    <include><name>tree_526</name><uri>model://tree_oak_s</uri><pose>313.62 -158.55 11.22 0 0 3.28</pose></include>  <!-- tree -->
+    <include><name>tree_527</name><uri>model://tree_oak_l</uri><pose>-52.57 347.57 -0.59 0 0 4.84</pose></include>  <!-- wood -->
+    <include><name>tree_528</name><uri>model://tree_oak_m</uri><pose>150.94 -318.00 8.02 0 0 3.23</pose></include>  <!-- row -->
+    <include><name>tree_529</name><uri>model://tree_oak_m</uri><pose>-142.66 -322.18 8.43 0 0 4.70</pose></include>  <!-- tree -->
+    <include><name>tree_530</name><uri>model://tree_oak_l</uri><pose>348.67 53.38 11.29 0 0 5.21</pose></include>  <!-- tree -->
+    <include><name>tree_531</name><uri>model://tree_oak_l</uri><pose>-10.08 352.71 2.01 0 0 2.02</pose></include>  <!-- wood -->
+    <include><name>tree_532</name><uri>model://tree_oak_m</uri><pose>-124.98 -330.47 8.24 0 0 4.22</pose></include>  <!-- tree -->
+    <include><name>tree_533</name><uri>model://tree_oak_s</uri><pose>-37.27 -351.57 7.88 0 0 1.95</pose></include>  <!-- row -->
+    <include><name>tree_534</name><uri>model://tree_oak_m</uri><pose>345.53 -75.46 11.26 0 0 5.99</pose></include>  <!-- tree -->
+    <include><name>tree_535</name><uri>model://tree_oak_l</uri><pose>-26.70 353.05 1.69 0 0 2.58</pose></include>  <!-- wood -->
+    <include><name>tree_536</name><uri>model://tree_oak_l</uri><pose>9.87 354.33 2.10 0 0 2.10</pose></include>  <!-- wood -->
+    <include><name>tree_537</name><uri>model://tree_oak_l</uri><pose>-36.41 352.85 1.37 0 0 0.60</pose></include>  <!-- wood -->
+    <include><name>tree_538</name><uri>model://tree_oak_m</uri><pose>348.75 -66.46 11.48 0 0 2.23</pose></include>  <!-- tree -->
+    <include><name>tree_539</name><uri>model://tree_oak_l</uri><pose>8.68 -355.05 6.74 0 0 0.46</pose></include>  <!-- row -->
+    <include><name>tree_540</name><uri>model://tree_oak_l</uri><pose>-11.32 -355.09 7.11 0 0 2.66</pose></include>  <!-- row -->
+    <include><name>tree_541</name><uri>model://tree_oak_m</uri><pose>158.95 -317.75 8.25 0 0 2.45</pose></include>  <!-- row -->
+    <include><name>tree_542</name><uri>model://tree_oak_m</uri><pose>319.90 -154.86 11.23 0 0 2.92</pose></include>  <!-- tree -->
+    <include><name>tree_543</name><uri>model://tree_oak_m</uri><pose>29.29 354.68 2.32 0 0 4.98</pose></include>  <!-- wood -->
+    <include><name>tree_544</name><uri>model://tree_oak_s</uri><pose>355.43 25.02 11.58 0 0 3.18</pose></include>  <!-- tree -->
+    <include><name>tree_545</name><uri>model://tree_oak_l</uri><pose>16.71 356.79 2.15 0 0 3.35</pose></include>  <!-- wood -->
+    <include><name>tree_546</name><uri>model://tree_oak_m</uri><pose>357.30 -5.72 11.61 0 0 0.29</pose></include>  <!-- tree -->
+    <include><name>tree_547</name><uri>model://tree_oak_l</uri><pose>-54.09 353.31 -0.42 0 0 0.30</pose></include>  <!-- wood -->
+    <include><name>tree_548</name><uri>model://tree_oak_m</uri><pose>354.61 -45.61 11.35 0 0 3.53</pose></include>  <!-- tree -->
+    <include><name>tree_549</name><uri>model://tree_oak_m</uri><pose>-3.70 358.02 2.21 0 0 1.91</pose></include>  <!-- wood -->
+    <include><name>tree_550</name><uri>model://tree_oak_l</uri><pose>-20.88 358.00 1.92 0 0 2.83</pose></include>  <!-- wood -->
+    <include><name>tree_551</name><uri>model://tree_oak_l</uri><pose>166.96 -317.50 8.57 0 0 5.88</pose></include>  <!-- row -->
+    <include><name>tree_552</name><uri>model://tree_oak_l</uri><pose>-43.86 356.07 1.56 0 0 4.63</pose></include>  <!-- wood -->
+    <include><name>tree_553</name><uri>model://tree_oak_m</uri><pose>359.14 2.77 11.75 0 0 4.71</pose></include>  <!-- tree -->
+    <include><name>tree_554</name><uri>model://tree_oak_l</uri><pose>1.96 -359.40 6.82 0 0 3.38</pose></include>  <!-- row -->
+    <include><name>tree_555</name><uri>model://tree_oak_m</uri><pose>-17.91 -359.64 7.29 0 0 4.95</pose></include>  <!-- row -->
+    <include><name>tree_556</name><uri>model://tree_oak_m</uri><pose>358.31 -36.23 11.34 0 0 0.24</pose></include>  <!-- tree -->
+    <include><name>tree_557</name><uri>model://tree_oak_m</uri><pose>243.53 -265.74 10.45 0 0 3.85</pose></include>  <!-- tree -->
+    <include><name>tree_558</name><uri>model://tree_oak_s</uri><pose>360.62 21.74 11.78 0 0 1.71</pose></include>  <!-- tree -->
+    <include><name>tree_559</name><uri>model://tree_oak_m</uri><pose>6.82 361.23 2.09 0 0 3.62</pose></include>  <!-- wood -->
+    <include><name>tree_560</name><uri>model://tree_oak_s</uri><pose>238.86 -271.08 10.27 0 0 5.13</pose></include>  <!-- tree -->
+    <include><name>tree_561</name><uri>model://tree_oak_s</uri><pose>-133.16 -336.09 8.42 0 0 0.23</pose></include>  <!-- tree -->
+    <include><name>tree_562</name><uri>model://tree_oak_l</uri><pose>-1.50 361.92 2.18 0 0 2.86</pose></include>  <!-- wood -->
+    <include><name>tree_563</name><uri>model://tree_oak_m</uri><pose>356.31 -63.50 11.39 0 0 5.64</pose></include>  <!-- tree -->
+    <include><name>tree_564</name><uri>model://tree_oak_s</uri><pose>233.84 -276.71 9.98 0 0 5.45</pose></include>  <!-- tree -->
+    <include><name>tree_565</name><uri>model://tree_oak_l</uri><pose>174.98 -317.25 8.80 0 0 0.11</pose></include>  <!-- row -->
+    <include><name>tree_566</name><uri>model://tree_oak_m</uri><pose>-115.24 -344.25 8.11 0 0 5.54</pose></include>  <!-- tree -->
+    <include><name>tree_567</name><uri>model://tree_oak_m</uri><pose>229.14 -282.31 9.84 0 0 2.32</pose></include>  <!-- tree -->
+    <include><name>tree_568</name><uri>model://tree_oak_l</uri><pose>-62.79 358.30 0.97 0 0 0.09</pose></include>  <!-- wood -->
+    <include><name>tree_569</name><uri>model://tree_oak_m</uri><pose>360.78 46.58 11.75 0 0 6.02</pose></include>  <!-- tree -->
+    <include><name>tree_570</name><uri>model://tree_oak_l</uri><pose>-4.77 -363.75 6.98 0 0 1.65</pose></include>  <!-- row -->
+    <include><name>tree_571</name><uri>model://tree_oak_l</uri><pose>16.35 363.73 2.33 0 0 0.82</pose></include>  <!-- wood -->
+    <include><name>tree_572</name><uri>model://tree_oak_m</uri><pose>362.02 -42.07 11.73 0 0 1.45</pose></include>  <!-- tree -->
+    <include><name>tree_573</name><uri>model://tree_oak_s</uri><pose>364.67 15.12 11.76 0 0 0.32</pose></include>  <!-- tree -->
+    <include><name>tree_574</name><uri>model://tree_oak_l</uri><pose>-24.50 -364.19 7.47 0 0 1.21</pose></include>  <!-- row -->
+    <include><name>tree_575</name><uri>model://tree_oak_s</uri><pose>222.96 -289.08 9.68 0 0 3.36</pose></include>  <!-- tree -->
+    <include><name>tree_576</name><uri>model://tree_oak_s</uri><pose>365.60 -4.25 11.94 0 0 2.43</pose></include>  <!-- tree -->
+    <include><name>tree_577</name><uri>model://tree_oak_m</uri><pose>217.76 -294.17 9.74 0 0 3.34</pose></include>  <!-- tree -->
+    <include><name>tree_578</name><uri>model://tree_oak_l</uri><pose>182.99 -317.01 9.13 0 0 3.94</pose></include>  <!-- row -->
+    <include><name>tree_579</name><uri>model://tree_oak_l</uri><pose>-54.43 362.03 0.93 0 0 1.69</pose></include>  <!-- wood -->
+    <include><name>tree_580</name><uri>model://tree_oak_l</uri><pose>-16.63 366.42 2.04 0 0 5.11</pose></include>  <!-- wood -->
+    <include><name>tree_581</name><uri>model://tree_oak_l</uri><pose>-7.31 366.92 2.11 0 0 5.37</pose></include>  <!-- wood -->
+    <include><name>tree_582</name><uri>model://tree_oak_m</uri><pose>212.70 -299.26 9.74 0 0 2.83</pose></include>  <!-- tree -->
+    <include><name>tree_583</name><uri>model://tree_oak_m</uri><pose>366.11 -27.89 11.61 0 0 2.64</pose></include>  <!-- tree -->
+    <include><name>tree_584</name><uri>model://tree_oak_l</uri><pose>-34.05 365.77 2.19 0 0 1.58</pose></include>  <!-- wood -->
+    <include><name>tree_585</name><uri>model://tree_oak_l</uri><pose>-45.36 365.27 2.18 0 0 4.82</pose></include>  <!-- wood -->
+    <include><name>tree_586</name><uri>model://tree_oak_l</uri><pose>-11.49 -368.10 7.21 0 0 5.68</pose></include>  <!-- row -->
+    <include><name>tree_587</name><uri>model://tree_oak_l</uri><pose>-28.72 367.17 2.09 0 0 4.22</pose></include>  <!-- wood -->
+    <include><name>tree_588</name><uri>model://tree_oak_l</uri><pose>-96.39 355.57 2.33 0 0 5.78</pose></include>  <!-- wood -->
+    <include><name>tree_589</name><uri>model://tree_oak_m</uri><pose>367.32 -34.01 11.93 0 0 5.06</pose></include>  <!-- tree -->
+    <include><name>tree_590</name><uri>model://tree_oak_s</uri><pose>368.30 23.88 11.83 0 0 5.09</pose></include>  <!-- tree -->
+    <include><name>tree_591</name><uri>model://tree_oak_l</uri><pose>191.00 -316.76 9.34 0 0 3.97</pose></include>  <!-- row -->
+    <include><name>tree_592</name><uri>model://tree_oak_l</uri><pose>-31.09 -368.74 7.64 0 0 3.62</pose></include>  <!-- row -->
+    <include><name>tree_593</name><uri>model://tree_oak_l</uri><pose>15.30 370.13 2.31 0 0 2.94</pose></include>  <!-- wood -->
+    <include><name>tree_594</name><uri>model://tree_oak_l</uri><pose>-62.13 365.85 1.09 0 0 3.91</pose></include>  <!-- wood -->
+    <include><name>tree_595</name><uri>model://tree_oak_m</uri><pose>-123.66 -350.06 8.39 0 0 3.11</pose></include>  <!-- tree -->
+    <include><name>tree_596</name><uri>model://tree_oak_s</uri><pose>371.86 16.06 12.03 0 0 4.57</pose></include>  <!-- tree -->
+    <include><name>tree_597</name><uri>model://tree_oak_l</uri><pose>-18.21 -372.45 7.36 0 0 0.49</pose></include>  <!-- row -->
+    <include><name>tree_598</name><uri>model://tree_oak_m</uri><pose>370.42 43.49 11.94 0 0 5.21</pose></include>  <!-- tree -->
+    <include><name>tree_599</name><uri>model://tree_oak_m</uri><pose>371.97 -27.61 12.01 0 0 3.84</pose></include>  <!-- tree -->
+    <!-- END generated trees -->
+
+    <!-- Load the plugin for the wind --> 
+    <plugin
+      filename="libUSVWind.so"
+      name="vrx::USVWind">
+      <wind_obj>
+        <name>wamv</name>
+        <link_name>wamv/base_link</link_name>
+        <coeff_vector>.5 .5 .33</coeff_vector>
+      </wind_obj>
+      <wind_obj>
+        <name>kingfisher</name>
+        <link_name>base_link</link_name>
+        <coeff_vector>.5 .5 .33</coeff_vector>
+      </wind_obj>
+      <!-- Wind -->
+      <wind_direction>240</wind_direction>
+      <!-- in degrees -->
+      <wind_mean_velocity>0.0</wind_mean_velocity>
+      <var_wind_gain_constants>0</var_wind_gain_constants>
+      <var_wind_time_constants>2</var_wind_time_constants>
+      <random_seed>10</random_seed>
+      <!-- set to zero/empty to randomize -->
+      <update_rate>10</update_rate>
+      <topic_wind_speed>/vrx/debug/wind/speed</topic_wind_speed>
+      <topic_wind_direction>/vrx/debug/wind/direction</topic_wind_direction>
+    </plugin>
+
+    <!-- The wave field -->
+    <plugin filename="libPublisherPlugin.so" name="vrx::PublisherPlugin">
+      <message type="gz.msgs.Param" topic="/vrx/wavefield/parameters"
+               every="2.0">
+        params {
+          key: "direction"
+          value {
+            type: DOUBLE
+            double_value: 0.0
+          }
+        }
+        params {
+          key: "gain"
+          value {
+            type: DOUBLE
+            double_value: 0.05
+          }
+        }
+        params {
+          key: "period"
+          value {
+            type: DOUBLE
+            double_value: 3
+          }
+        }
+        params {
+          key: "steepness"
+          value {
+            type: DOUBLE
+            double_value: 0
+          }
+        }
+      </message>
+    </plugin>
+
+  </world>
+</sdf>
