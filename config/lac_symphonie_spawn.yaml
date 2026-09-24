@@ -5,7 +5,8 @@
 # bow pointing north up the lake.  Only the Kingfisher is spawned by default;
 # uncomment the WAM-V entry to spawn both.
 - model_name: kingfisher
-  model_type: kingfisher
+  model_type: usv
+  urdf: package://kingfisher_gazebo/urdf/kingfisher_gazebo.urdf.xacro
   position:
     xyz: [-47.92, 67.33, 0.12]
     rpy: [0, 0, 1.5708]
