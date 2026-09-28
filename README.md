@@ -30,6 +30,9 @@ ros2 launch vrx_gz competition.launch.py world:=lac_symphonie \
 Checks: `ros2 topic echo --once /kingfisher/sensors/gps/gps/fix` → ≈ 49.1024 N, 6.2173 E;
 `ros2 run tf2_ros tf2_echo map georgia_tech` → (−145.2, −154.4, 0).
 
+`trees:=False` drops the ~600 generated trees from the launched copy of the world for
+faster rendering and simulation; the world name stays `lac_symphonie`.
+
 ### Wind
 
 `vrx::USVWind` gives the lake one uniform wind. Set it per launch; it is calm by default:
@@ -98,4 +101,4 @@ block are kept, everything outside the block is hand-editable.
 5. Tree species: OSM has no `leaf_type` tags here, so every tree is an oak; edit the
    generated block or `species_of()` in `gen_trees.py`.
 6. Performance: 600 tree meshes + a 230k-triangle terrain run at RTF 1.0 on an RTX 3080;
-   on weaker GPUs lower `TREE_CAP` and raise `VISUAL_STEP_M`.
+   on weaker GPUs lower `TREE_CAP` and raise `VISUAL_STEP_M`, or launch with `trees:=False`.

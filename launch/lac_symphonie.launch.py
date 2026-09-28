@@ -12,6 +12,7 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import (AppendEnvironmentVariable, DeclareLaunchArgument,
                             IncludeLaunchDescription, OpaqueFunction)
+from launch.conditions import evaluate_condition_expression
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
@@ -23,9 +24,12 @@ WIND_ARGS = {
     'var_wind_gain_constants': 'wind_gust',
 }
 
+# Block written by scripts/gen_trees.py
+TREES_BLOCK = re.compile(r'(<!-- BEGIN generated trees -->).*?(<!-- END generated trees -->)', re.S)
 
-def world_with_wind(context, world_sdf):
-    """Write a copy of the world with the wind args and put it first on GZ_SIM_RESOURCE_PATH."""
+
+def world_with_args(context, world_sdf):
+    """Write a copy of the world with the wind and trees args and put it first on GZ_SIM_RESOURCE_PATH."""
     with open(world_sdf) as f:
         sdf = f.read()
     for tag, arg in WIND_ARGS.items():
@@ -34,6 +38,10 @@ def world_with_wind(context, world_sdf):
         sdf, n = re.subn(rf'<{tag}>[^<]*</{tag}>', f'<{tag}>{value}</{tag}>', sdf)
         if n != 1:
             raise RuntimeError(f'expected one <{tag}> in {world_sdf}, found {n}')
+    if not evaluate_condition_expression(context, [LaunchConfiguration('trees')]):
+        sdf, n = TREES_BLOCK.subn(r'\1\n    \2', sdf)
+        if n != 1:
+            raise RuntimeError(f'expected one generated trees block in {world_sdf}, found {n}')
     out_dir = tempfile.mkdtemp(prefix='lac_symphonie_')
     with open(os.path.join(out_dir, os.path.basename(world_sdf)), 'w') as f:
         f.write(sdf)
@@ -82,7 +90,9 @@ def generate_launch_description():
                               description='Where the wind goes, degrees counter-clockwise from east'),
         DeclareLaunchArgument('wind_gust', default_value='0.0',
                               description='Gust gain, about the standard deviation of the speed, m/s'),
-        OpaqueFunction(function=world_with_wind, args=[world_sdf]),
+        DeclareLaunchArgument('trees', default_value='True',
+                              description='False to drop the generated trees for faster runs'),
+        OpaqueFunction(function=world_with_args, args=[world_sdf]),
         vrx_launch,
         geo_tf,
     ])
