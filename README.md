@@ -27,8 +27,8 @@ ros2 launch vrx_gz competition.launch.py world:=lac_symphonie \
      config_file:=$(ros2 pkg prefix lac_symphonie)/share/lac_symphonie/config/lac_symphonie_spawn.yaml
 ```
 
-Checks: `ros2 topic echo --once /kingfisher/sensors/gps/gps/fix` → ≈ 49.1024 N, 6.2173 E;
-`ros2 run tf2_ros tf2_echo map georgia_tech` → (−145.2, −154.4, 0).
+Checks: `ros2 topic echo --once /kingfisher/sensors/gps/gps/fix` → ≈ 49.1041 N, 6.2165 E;
+`ros2 run tf2_ros tf2_echo map launch_site` → (−50.9, 70.0, 0), next to the boat.
 
 `trees:=False` drops the ~600 generated trees from the launched copy of the world for
 faster rendering and simulation; the world name stays `lac_symphonie`.

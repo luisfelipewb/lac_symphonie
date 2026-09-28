@@ -1,8 +1,7 @@
 # Start poses for vrx_gz competition.launch.py config_file:=...  Local metres in the
 # world frame (x east, y north, z = water level); convert real positions with
-# scripts/latlon_to_local.py.  Default: in the water off the west bank, the
-# closest open water to the Georgia Tech building (49.102426 N, 6.217260 E),
-# bow pointing north up the lake.  Only the Kingfisher is spawned by default;
+# scripts/latlon_to_local.py.  Default: next to launch_site in geo_points.yaml
+# (49.1041283 N, 6.2164558 E), bow pointing north.  Only the Kingfisher is spawned by default;
 # uncomment the WAM-V entry to spawn both.
 - model_name: kingfisher
   model_type: usv
