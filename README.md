@@ -30,6 +30,21 @@ ros2 launch vrx_gz competition.launch.py world:=lac_symphonie \
 Checks: `ros2 topic echo --once /kingfisher/sensors/gps/gps/fix` → ≈ 49.1024 N, 6.2173 E;
 `ros2 run tf2_ros tf2_echo map georgia_tech` → (−145.2, −154.4, 0).
 
+### Wind
+
+`vrx::USVWind` gives the lake one uniform wind. Set it per launch; it is calm by default:
+
+| arg | default | meaning |
+|---|---|---|
+| `wind_speed` | 0.0 | mean speed, m/s |
+| `wind_direction` | 240 | where the wind goes, degrees counter-clockwise from east |
+| `wind_gust` | 0.0 | gust gain, about the standard deviation of the speed, m/s |
+
+e.g. `ros2 launch lac_symphonie lac_symphonie.launch.py wind_speed:=5 wind_direction:=0` blows toward the east.
+The launch writes a copy of the world with these values into a temp dir, first on `GZ_SIM_RESOURCE_PATH`.
+The true wind is on `/vrx/debug/wind/{speed,direction}`. Hull windage applies to the models listed in the
+world's `USVWind` block (`wamv`, `kingfisher`).
+
 ## Lat/lon → TF: `geo_tf_publisher`
 
 Publishes one static transform `map → <name>` per point. Origin is read from the

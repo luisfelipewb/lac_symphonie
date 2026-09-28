@@ -976,10 +976,12 @@
         <link_name>wamv/base_link</link_name>
         <coeff_vector>.5 .5 .33</coeff_vector>
       </wind_obj>
+      <!-- Scoped: an unscoped base_link matches any model's. Equal x/y and
+           z = 0, since USVWind applies them along world axes. -->
       <wind_obj>
         <name>kingfisher</name>
-        <link_name>base_link</link_name>
-        <coeff_vector>.5 .5 .33</coeff_vector>
+        <link_name>kingfisher::base_link</link_name>
+        <coeff_vector>0.0 0.0 0</coeff_vector>
       </wind_obj>
       <!-- Wind -->
       <wind_direction>240</wind_direction>

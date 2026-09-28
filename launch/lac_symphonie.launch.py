@@ -5,17 +5,44 @@
 """Launch the Lac Symphonie world with the vehicles of a spawn config and the geo TF node."""
 
 import os
+import re
+import tempfile
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.actions import (AppendEnvironmentVariable, DeclareLaunchArgument,
+                            IncludeLaunchDescription, OpaqueFunction)
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
+# USVWind element <- launch arg
+WIND_ARGS = {
+    'wind_mean_velocity': 'wind_speed',
+    'wind_direction': 'wind_direction',
+    'var_wind_gain_constants': 'wind_gust',
+}
+
+
+def world_with_wind(context, world_sdf):
+    """Write a copy of the world with the wind args and put it first on GZ_SIM_RESOURCE_PATH."""
+    with open(world_sdf) as f:
+        sdf = f.read()
+    for tag, arg in WIND_ARGS.items():
+        value = LaunchConfiguration(arg).perform(context)
+        float(value)
+        sdf, n = re.subn(rf'<{tag}>[^<]*</{tag}>', f'<{tag}>{value}</{tag}>', sdf)
+        if n != 1:
+            raise RuntimeError(f'expected one <{tag}> in {world_sdf}, found {n}')
+    out_dir = tempfile.mkdtemp(prefix='lac_symphonie_')
+    with open(os.path.join(out_dir, os.path.basename(world_sdf)), 'w') as f:
+        f.write(sdf)
+    return [AppendEnvironmentVariable('GZ_SIM_RESOURCE_PATH', out_dir, prepend=True)]
+
 
 def generate_launch_description():
     pkg = get_package_share_directory('lac_symphonie')
+    world_sdf = os.path.join(pkg, 'worlds', 'lac_symphonie.sdf')
 
     vrx_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(os.path.join(
@@ -33,7 +60,7 @@ def generate_launch_description():
         executable='geo_tf_publisher',
         output='screen',
         parameters=[{
-            'world_sdf': os.path.join(pkg, 'worlds', 'lac_symphonie.sdf'),
+            'world_sdf': world_sdf,
             'points_file': LaunchConfiguration('points_file'),
             'use_sim_time': True,
         }])
@@ -49,6 +76,13 @@ def generate_launch_description():
                               description='True to start the simulation paused'),
         DeclareLaunchArgument('extra_gz_args', default_value='',
                               description='Additional arguments passed to gz sim'),
+        DeclareLaunchArgument('wind_speed', default_value='0.0',
+                              description='Mean wind speed, m/s'),
+        DeclareLaunchArgument('wind_direction', default_value='240',
+                              description='Where the wind goes, degrees counter-clockwise from east'),
+        DeclareLaunchArgument('wind_gust', default_value='0.0',
+                              description='Gust gain, about the standard deviation of the speed, m/s'),
+        OpaqueFunction(function=world_with_wind, args=[world_sdf]),
         vrx_launch,
         geo_tf,
     ])
