@@ -22,7 +22,7 @@ sensor of any vehicle therefore reports real coordinates.
 cd ~/workspaces/vrx_ws && source /opt/ros/jazzy/setup.bash
 colcon build --merge-install --packages-select lac_symphonie && source install/setup.bash
 
-ros2 launch lac_symphonie lac_symphonie.launch.py            # Kingfisher + geo_tf_publisher (+ headless:=True)
+ros2 launch lac_symphonie lac_symphonie.launch.py            # the spawn config's vehicles (+ headless:=True)
 ros2 launch vrx_gz competition.launch.py world:=lac_symphonie \
      config_file:=$(ros2 pkg prefix lac_symphonie)/share/lac_symphonie/config/lac_symphonie_spawn.yaml
 ```
@@ -51,10 +51,14 @@ world's `USVWind` block (`wamv`, `kingfisher`).
 ## Lat/lon → TF: `geo_tf_publisher`
 
 Publishes one static transform `map → <name>` per point. Origin is read from the
-world SDF (`world_sdf` parameter) so it can never drift from the simulation.
+world SDF (`world_sdf` parameter) so it can never drift from the simulation. Not started by
+`lac_symphonie.launch.py`: with a Kingfisher, `kingfisher_sim` publishes the same points from
+`kingfisher_localization`'s site file, as on the real boat. Run it by hand otherwise:
+`ros2 run lac_symphonie geo_tf_publisher --ros-args -p world_sdf:=<sdf> -p points_file:=<yaml>`.
 
 - `config/geo_points.yaml`: `{name, latitude, longitude, altitude?, yaw_deg?}` entries
-  (altitude absolute, default = water level).
+  (altitude absolute, default = water level). Kept equal to `kingfisher_localization`'s
+  `config/sites/lac_symphonie.yaml` (checked by a `kingfisher_sim` test).
 - runtime: `ros2 topic pub --once /geo_tf_publisher/add_point geographic_msgs/msg/GeoPointStamped
   "{header: {frame_id: pontoon}, position: {latitude: 49.1030, longitude: 6.2160, altitude: .nan}}"`
 - CLI: `scripts/latlon_to_local.py LAT LON` / `--reverse X Y` (spawn poses, waypoints).

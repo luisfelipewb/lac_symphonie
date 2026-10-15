@@ -2,7 +2,7 @@
 #
 # Licensed under the BSD License; see the package.xml for details.
 
-"""Launch the Lac Symphonie world with the vehicles of a spawn config and the geo TF node."""
+"""Launch the Lac Symphonie world with the vehicles of a spawn config."""
 
 import os
 import re
@@ -15,7 +15,6 @@ from launch.actions import (AppendEnvironmentVariable, DeclareLaunchArgument,
 from launch.conditions import evaluate_condition_expression
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
-from launch_ros.actions import Node
 
 # USVWind element <- launch arg
 WIND_ARGS = {
@@ -63,21 +62,9 @@ def generate_launch_description():
             'extra_gz_args': LaunchConfiguration('extra_gz_args'),
         }.items())
 
-    geo_tf = Node(
-        package='lac_symphonie',
-        executable='geo_tf_publisher',
-        output='screen',
-        parameters=[{
-            'world_sdf': world_sdf,
-            'points_file': LaunchConfiguration('points_file'),
-            'use_sim_time': True,
-        }])
-
     return LaunchDescription([
         DeclareLaunchArgument('config_file', default_value=os.path.join(pkg, 'config', 'lac_symphonie_spawn.yaml'),
                               description='vrx_gz spawn config (list of models with positions)'),
-        DeclareLaunchArgument('points_file', default_value=os.path.join(pkg, 'config', 'geo_points.yaml'),
-                              description='YAML of lat/lon points published as TF frames'),
         DeclareLaunchArgument('headless', default_value='False',
                               description='True to run gz sim without the GUI'),
         DeclareLaunchArgument('paused', default_value='False',
@@ -94,5 +81,4 @@ def generate_launch_description():
                               description='False to drop the generated trees for faster runs'),
         OpaqueFunction(function=world_with_args, args=[world_sdf]),
         vrx_launch,
-        geo_tf,
     ])
